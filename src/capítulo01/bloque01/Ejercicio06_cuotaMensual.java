@@ -13,6 +13,7 @@ public class Ejercicio06_cuotaMensual {
 		double InteresA;
 		double InteresM;
 		double CuotaMensual;
+		double Enesima;
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -26,8 +27,9 @@ public class Ejercicio06_cuotaMensual {
 		NumeroPlazos = sc.nextInt();
 		InteresA= Euribor + Diferencial;
 		InteresM= (InteresA/12)/100;
-		
-;
+		Enesima= Math.pow(1+InteresM,NumeroPlazos);
+		CuotaMensual= Capital*((InteresM*Enesima)/(Enesima-1));
+		System.out.println("La cuota mensual es: " + CuotaMensual);
 		
 		
 
