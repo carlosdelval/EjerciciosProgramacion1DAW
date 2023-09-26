@@ -20,6 +20,8 @@ public class Ejercicio03_pidoCincoVariablesMuestroMayor {
 		num5= sc.nextDouble();
 		mayor=num1;
 		
+		//Cambiar los if justo después de que se introduzcan las variables.
+		
 		if(mayor<=num2) {
 			mayor=num2;
 		}
