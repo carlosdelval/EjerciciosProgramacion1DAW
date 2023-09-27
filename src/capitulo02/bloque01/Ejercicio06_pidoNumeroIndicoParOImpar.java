@@ -6,12 +6,12 @@ public class Ejercicio06_pidoNumeroIndicoParOImpar {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		double num;
+		int num;
 		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Introduzca un número: ");
-		num = sc.nextDouble();
+		num = sc.nextInt();
 		if(num%2 == 1) {
 			System.out.println("El número es impar.");
 		}else {
