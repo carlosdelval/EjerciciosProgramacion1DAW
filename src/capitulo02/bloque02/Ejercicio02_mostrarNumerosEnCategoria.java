@@ -2,26 +2,27 @@ package capitulo02.bloque02;
 
 import java.util.Scanner;
 
-public class Ejercicio01_sumaCategorias {
+public class Ejercicio02_mostrarNumerosEnCategoria {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		double num1, num2, num3, num4, num5, sumaNegativos, sumaBajos, sumaMedios, sumaGrandes;
-		sumaNegativos = sumaBajos = sumaMedios = sumaGrandes = 0;
+		double num1, num2, num3, num4, num5;
+		int numNegativos, numBajos, numMedios, numGrandes;
+		numNegativos = numBajos = numMedios = numGrandes = 0;
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Introduzca el valor de la primera variable: ");
 		num1 = sc.nextDouble();
 		
 		if(num1<0) {
-			sumaNegativos= sumaNegativos + num1;
+			numNegativos= numNegativos + 1;
 		}if(num1 >= 0 && num1 <= 25) {
-			sumaBajos = sumaBajos + num1;
+			numBajos = numBajos + 1;
 		}if(num1 >= 26 && num1 <= 250) {
-			sumaMedios = sumaMedios + num1;
+			numMedios = numMedios + 1;
 		}if (num1 > 250) {
-			sumaGrandes = sumaGrandes + num1;
+			numGrandes = numGrandes + 1;
 		}
 		
 		
@@ -29,58 +30,60 @@ public class Ejercicio01_sumaCategorias {
 		num2= sc.nextDouble();
 		
 		if(num2<0) {
-			sumaNegativos= sumaNegativos + num2;
+			numNegativos= numNegativos + 1;
 		}if(num2 >= 0 && num2 <= 25) {
-			sumaBajos = sumaBajos + num2;
+			numBajos = numBajos + 1;
 		}if(num2 >= 26 && num2 <= 250) {
-			sumaMedios = sumaMedios + num2;
+			numMedios = numMedios + 1;
 		}if (num2 > 250) {
-			sumaGrandes = sumaGrandes + num2;
+			numGrandes = numGrandes + 1;
 		}
+		
 		
 		System.out.println("Introduzca el valor de la tercera variable: ");
 		num3= sc.nextDouble();
 		
 		if(num3<0) {
-			sumaNegativos= sumaNegativos + num3;
+			numNegativos= numNegativos + 1;
 		}if(num3 >= 0 && num3 <= 25) {
-			sumaBajos = sumaBajos + num3;
+			numBajos = numBajos + 1;
 		}if(num3 >= 26 && num3 <= 250) {
-			sumaMedios = sumaMedios + num3;
+			numMedios = numMedios + 1;
 		}if (num3 > 250) {
-			sumaGrandes = sumaGrandes + num3;
+			numGrandes = numGrandes + 1;
 		}
+		
 		
 		System.out.println("Introduzca el valor de la tercera variable: ");
 		num4= sc.nextDouble();
 		
 		if(num4<0) {
-			sumaNegativos= sumaNegativos + num4;
+			numNegativos= numNegativos + 1;
 		}if(num4 >= 0 && num4 <= 25) {
-			sumaBajos = sumaBajos + num4;
+			numBajos = numBajos + 1;
 		}if(num4 >= 26 && num4 <= 250) {
-			sumaMedios = sumaMedios + num4;
+			numMedios = numMedios + 1;
 		}if (num4 > 250) {
-			sumaGrandes = sumaGrandes + num4;
+			numGrandes = numGrandes + 1;
 		}
+		
 		
 		System.out.println("Introduzca el valor de la tercera variable: ");
 		num5= sc.nextDouble();
 		
 		if(num5<0) {
-			sumaNegativos= sumaNegativos + num5;
+			numNegativos= numNegativos + 1;
 		}if(num5 >= 0 && num5 <= 25) {
-			sumaBajos = sumaBajos + num5;
+			numBajos = numBajos + 1;
 		}if(num5 >= 26 && num5 <= 250) {
-			sumaMedios = sumaMedios + num5;
+			numMedios = numMedios + 1;
 		}if (num5 > 250) {
-			sumaGrandes = sumaGrandes + num5;
+			numGrandes = numGrandes + 1;
 		}
-		
-		System.out.println("La suma de los negativos es: " +sumaNegativos);
-		System.out.println("La suma de los bajos es: " +sumaBajos);
-		System.out.println("La suma de los medios es: " +sumaMedios);
-		System.out.println("La suma de los grandes es: " +sumaGrandes);
+		System.out.println("Hay " +numNegativos + " números negativos.");
+		System.out.println("Hay " +numBajos+ " números bajos.");
+		System.out.println("Hay " +numMedios+ " números medios.");
+		System.out.println("Hay " +numGrandes+ " números grandes.");
 	}
 
 }
