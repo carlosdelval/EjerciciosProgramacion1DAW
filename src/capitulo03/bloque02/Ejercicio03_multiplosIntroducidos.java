@@ -8,7 +8,7 @@ public class Ejercicio03_multiplosIntroducidos {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 
-		int num, multiplo;
+		int num;
 
 		System.out.println("Introduzca un número: ");
 		num = sc.nextInt();

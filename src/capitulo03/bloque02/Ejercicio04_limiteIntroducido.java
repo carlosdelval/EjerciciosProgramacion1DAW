@@ -8,7 +8,7 @@ public class Ejercicio04_limiteIntroducido {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 
-		int num, multiplo, numeros;
+		int num, numeros;
 		
 		System.out.println("Introduzca el límite: ");
 		numeros = sc.nextInt();
