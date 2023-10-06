@@ -8,30 +8,40 @@ public class Ejercicio02_detenerCeroMenorYMayor {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 
-		int mayor = 0, menor = 0, num;
+		int mayor = 0, menor = 0, num, num2;
 
-		for (int i = 0; i < i + 1; i++) {
+		System.out.println("Introduzca un número: ");
+		num = sc.nextInt();
 
-			System.out.println("Introduzca un número:");
+		if (num != 0) {
 
-			num = sc.nextInt();
+			mayor = num;
+			menor = num;
 
-			if (num == 0) {
+			for (int i = 0; i < i + 1; i++) {
 
-				break;
+				System.out.println("Introduzca otro número:");
 
-			} else {
+				num = sc.nextInt();
 
-				if(num > mayor) {
-					
-					mayor = num;
-					
-				}if(num < menor){
-					
-					menor = num;
-					
+				if (num == 0) {
+
+					break;
+
+				} else {
+
+					if (num > mayor) {
+
+						mayor = num;
+
+					}
+					if (num < menor) {
+
+						menor = num;
+
+					}
+
 				}
-
 			}
 		}
 		
