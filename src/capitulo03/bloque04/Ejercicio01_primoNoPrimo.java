@@ -17,6 +17,14 @@ public class Ejercicio01_primoNoPrimo {
 		
 		num = sc.nextInt();
 		
+		while(num <=0) {
+			
+			System.out.println("El número no es válido, introduzca otro por favor:");
+			num = sc.nextInt();
+			
+		}
+		
+		
 		while(i < num) {
 			
 			if(num % i == 0) {
