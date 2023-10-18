@@ -23,21 +23,21 @@ public class Ejercicio02_intercambiarValoresIndicePar {
 	
 	public static int[] creaTercerArray (int a1[], int a2[]) {
 		
-		int array[] = new int[150];
+		int a[] = new int[150];
 		
         for (int i = 1; i < a1.length; i += 2) {
         	
-            array[i] = a1[i];
+            a[i] = a1[i];
             
         }
         
         for (int i = 0; i < a2.length; i += 2) {
         	
-            array[i] = a2[i];
+            a[i] = a2[i];
             
         }
         
-        return array;
+        return a;
 		
 	}
 

@@ -16,9 +16,9 @@ public class Ejercicio03_multiplicarPorNumeroIntroducido {
 		UtilsArrays.inicializaArray(array, 0, 100);
 		
 		System.out.println("Introduzca el factor: ");
-		int num = sc.nextInt();
+		int n = sc.nextInt();
 		
-		multiplicaValoresPorFactor(array, num);
+		multiplicaValoresPorFactor(array, n);
 
 
 	}
