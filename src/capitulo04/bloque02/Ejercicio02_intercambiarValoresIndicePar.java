@@ -1,7 +1,5 @@
 package capitulo04.bloque02;
 
-import java.util.Scanner;
-
 import tutorialJava.UtilsArrays;
 
 public class Ejercicio02_intercambiarValoresIndicePar {
