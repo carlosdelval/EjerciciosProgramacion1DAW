@@ -15,10 +15,14 @@ public class Ejercicio03_multiplicarPorNumeroIntroducido {
 		
 		UtilsArrays.inicializaArray(array, 0, 100);
 		
+		UtilsArrays.imprimeArray(array);
+		
 		System.out.println("Introduzca el factor: ");
 		int n = sc.nextInt();
 		
 		multiplicaValoresPorFactor(array, n);
+		
+		UtilsArrays.imprimeArray(array);
 
 
 	}
