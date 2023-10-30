@@ -9,9 +9,7 @@ public class Ejercicio03_esPalindromo {
 		
 		String s = Utils.obtenerCadenaConDescripcion("Introduzca la cadena de caracteres: ");
 		
-		boolean esPalindromo = esPalindromo(s);
-		
-		if(esPalindromo = true) {
+		if(esPalindromo(s) == true) {
 			
 			System.out.println("Es palíndromo.");
 			
@@ -25,31 +23,22 @@ public class Ejercicio03_esPalindromo {
 	
 	public static boolean esPalindromo(String s) {
 		
-		boolean esPal = true;
+		int i = 0, j = s.length()-1;
 		
-		int j = 0;
-		
-		char array[] = new char[s.length()];
-		
-		for (int i = s.length() - 1; i >= 0; i--) {
+		while (i < j) {
 			
-			array[j] = s.charAt(i);
-			
-			j++;
-			
-		}
-		
-		for (int i = 0; i < array.length; i++) {
-			
-			if(array[i] != s.charAt(i)) {
+			if ( s.charAt(i) != s.charAt(j)) {
 				
-				esPal = false;
+				return false;
 				
 			}
 			
+			i++;
+			j--;
+			
 		}
 		
-		return esPal;
+		return true;
 		
 	}
 
