@@ -11,19 +11,30 @@ public class Ejercicio06_pasarAMinuscula {
 		
 		String s = Utils.obtenerCadenaConDescripcion("Introduzca la cadena de caracteres: ");
 		
-		String min = pasarAMinuscula(s);
-		
-		System.out.println(min);
+		System.out.println(pasarAMinuscula(s));
 
 	}
 	
 	public static String pasarAMinuscula(String s) {
 		
-		String min;
+		String res = "";
 		
-		min = s.toLowerCase();
+		for (int i = 0; i < s.length(); i++) {
+			
+			if(s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
+				
+				res += (char) (s.charAt(i) + 32);
+				
+			}
+			else {
+				
+				res += s.charAt(i);
+				
+			}
+			
+		}
 		
-		return min;
+		return res;
 		
 	}
 

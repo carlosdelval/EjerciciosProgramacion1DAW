@@ -10,22 +10,20 @@ public class Ejercicio05_comparacionCadenas {
 		String s1 = Utils.obtenerCadenaConDescripcion("Introduzca la cadena de caracteres: ");
 		
 		String s2 = Utils.obtenerCadenaConDescripcion("Introduzca la cadena de caracteres: ");
-		
-		int i = comparacionCadenas(s1 , s2);
-		
-		if (i == -1) {
+	
+		if (comparacionCadenas(s1 , s2) == -1) {
 			
 			System.out.println("Las cadena 1 es menor que la cadena 2.");
 			
 		}
 		
-		if (i == 1) {
+		if (comparacionCadenas(s1 , s2) == 1) {
 			
 			System.out.println("La cadena 2 es menor que la cadena 1.");
 			
 		}
 		
-		if (i == 0) {
+		if (comparacionCadenas(s1 , s2) == 0) {
 			
 			System.out.println("Las cadenas son iguales.");
 			
