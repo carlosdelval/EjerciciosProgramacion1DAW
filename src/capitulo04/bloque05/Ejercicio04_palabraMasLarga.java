@@ -21,13 +21,9 @@ public class Ejercicio04_palabraMasLarga {
 
 		for (int i = 0; i < s.length(); i++) {
 			
-			int count = 0;
-			
 			String aux = "";
 
 			while (s.charAt(i) != ' ' && i < s.length()) {
-
-				count++;
 
 				aux += s.charAt(i);
 

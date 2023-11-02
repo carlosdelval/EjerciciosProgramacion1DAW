@@ -1,7 +1,5 @@
 package capitulo04.bloque05;
 
-import java.util.Iterator;
-
 import tutorialJava.Utils;
 
 public class Ejercicio05_invertirPalabra {
