@@ -21,7 +21,9 @@ public class Ejercicio02_cifradoCesar {
 		
 		for (int i = 0; i < s.length(); i++) {
 			
-			cadena += (char) (s.charAt(i) + desp % 27);
+			int aux = s.charAt(i) - 97;
+			
+			cadena += (char) (((aux + desp) % 26) + 97);
 			
 		}
 		
