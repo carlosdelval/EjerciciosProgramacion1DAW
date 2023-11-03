@@ -6,39 +6,36 @@ public class Ejercicio01_eliminarRepetidos {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		String s = Utils.obtenerCadenaConDescripcion("Introduzca la cadena: ");
 
 		System.out.println(eliminarDuplicados(s));
 
 	}
-	
+
 	public static String eliminarDuplicados(String s) {
+
+		String nueva = "";
 		
-		String nueva = s;
-		
-		boolean hayDuplicados = true;
-		
-		while (hayDuplicados == true) {
+		for (int i = 0; i < s.length(); i++) {
 			
-			hayDuplicados = false;
+			boolean seRepite = false;
 			
-			String aux = "" + nueva.charAt(0);
-			
-			for (int i = 0; i < nueva.length(); i++) {
+			for (int j = i - 1; j > -1 ; j--) {
 				
-				for (int j = i + 1; j < nueva.length(); j++) {
+				if(s.charAt(i) == s.charAt(j)) {
 					
-					if (nueva.charAt(i) != nueva.charAt(j)) aux += nueva.charAt(j);
-					else hayDuplicados = true;
-				
+					 seRepite = true;
+					
 				}
-			
+				
 			}
 			
+			if(seRepite == false) nueva += s.charAt(i);
+
 		}
 		
 		return nueva;
-
+		
 	}
 }
