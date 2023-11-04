@@ -31,7 +31,7 @@ public class Ejercicio01_metodosMatrices {
 			System.out.println("Fila no válida, matriz de 5x5. Introduzca de nuevo: ");
 			fila = sc.nextInt();
 		}
-		System.out.println("La matriz con la fila " + fila + " eliminada es: \n");
+		System.out.println("La matriz con la fila número " + fila + " eliminada es: \n");
 		imprimeMatriz(eliminaFilaIntroducida(m, fila));
 
 	}
