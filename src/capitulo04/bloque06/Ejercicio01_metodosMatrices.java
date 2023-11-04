@@ -128,7 +128,7 @@ public class Ejercicio01_metodosMatrices {
 	}
 
 	/**
-	 * Método que recorre la matriz revisandola por filas y en el momento en el que
+	 * Método que recorre la matriz revisandola primero por filas y luego por columnas, y en el momento en el que
 	 * recorre una en el que no encuentre un valor nulo devuelve falso.
 	 * 
 	 * @param m
@@ -146,9 +146,21 @@ public class Ejercicio01_metodosMatrices {
 					hayNulo = true;
 				}
 			}
-			if (hayNulo == false)
-				return false;
+			if (hayNulo == false) return false;
 		}
+		
+		for (int j = 0; j < m[0].length; j++) {
+			
+			boolean hayNulo = false;
+			
+			for (int i = 0; i < m.length; i++) {
+				if(m[i][j] == 0) {
+					hayNulo = true;
+				}
+			}
+			if (hayNulo == false) return false;
+		}
+		
 		return true;
 	}
 
