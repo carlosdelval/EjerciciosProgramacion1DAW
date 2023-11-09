@@ -28,12 +28,16 @@ public class Ejercicio_tresEnRaya {
 		while (hayGanador == false) {
 			
 			System.out.println("Es el turno de " + player1 + ".");
+			System.out.println("Ingrese la primera coordenada: ");
 			int coord1 = ingresaCoordenada() - 1;
+			System.out.println("Ingrese la segunda coordenada: ");
 			int coord2 = ingresaCoordenada() - 1;
 			while(validarJugada(m, coord1, coord2) == false) {
 				
 				System.out.println("Jugada no válida, posición ocupada!");
+				System.out.println("Ingrese la primera coordenada: ");
 				coord1 = ingresaCoordenada() - 1;
+				System.out.println("Ingrese la segunda coordenada: ");
 				coord2 = ingresaCoordenada() - 1;
 			}
 			m[coord1][coord2] = 1;
@@ -47,12 +51,16 @@ public class Ejercicio_tresEnRaya {
 
 			if (hayGanador == false) {
 				System.out.println("Es el turno de " + player2 + ".");
+				System.out.println("Ingrese la primera coordenada: ");
 				coord1 = ingresaCoordenada() - 1;
+				System.out.println("Ingrese la segunda coordenada: ");
 				coord2 = ingresaCoordenada() - 1;
 				while(validarJugada(m, coord1, coord2) == false) {
 					
 					System.out.println("Jugada no válida, posición ocupada!");
+					System.out.println("Ingrese la primera coordenada: ");
 					coord1 = ingresaCoordenada() - 1;
+					System.out.println("Ingrese la segunda coordenada: ");
 					coord2 = ingresaCoordenada() - 1;
 				}
 				m[coord1][coord2] = 2;
@@ -137,10 +145,10 @@ public class Ejercicio_tresEnRaya {
 	 */
 
 	public static int ingresaCoordenada() {
-
+		
 		Scanner sc = new Scanner(System.in);
-		int n = Utils.obtenerEnteroConDescripcion("Ingrese coordenada de su jugada: ");
-
+		int n = Utils.obtenerEnteroConDescripcion("");
+		
 		while (n < 0 && n > 3) {
 
 			System.out.println("Coordenada no válida, jugamos a tres en raya! Ingrese de nuevo: ");
