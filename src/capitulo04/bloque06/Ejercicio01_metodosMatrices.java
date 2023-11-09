@@ -149,7 +149,7 @@ public class Ejercicio01_metodosMatrices {
 			if (hayNulo == false) return false;
 		}
 		
-		for (int j = 0; j < m[0].length; j++) {
+		for (int j = 0; j < m[j].length; j++) {
 			
 			boolean hayNulo = false;
 			
