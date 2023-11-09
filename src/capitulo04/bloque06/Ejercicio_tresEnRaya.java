@@ -149,7 +149,7 @@ public class Ejercicio_tresEnRaya {
 		Scanner sc = new Scanner(System.in);
 		int n = Utils.obtenerEnteroConDescripcion("");
 		
-		while (n < 0 && n > 3) {
+		while (n < 1 || n > 3) {
 
 			System.out.println("Coordenada no válida, jugamos a tres en raya! Ingrese de nuevo: ");
 			n = sc.nextInt();
