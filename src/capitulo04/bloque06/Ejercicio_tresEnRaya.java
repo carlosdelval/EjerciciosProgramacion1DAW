@@ -1,6 +1,5 @@
 package capitulo04.bloque06;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 import tutorialJava.Utils;
@@ -13,12 +12,8 @@ public class Ejercicio_tresEnRaya {
 
 		int m[][] = new int[3][3];
 		boolean hayGanador = false;
-
-		for (int i = 0; i < m.length; i++) {
-			for (int j = 0; j < m[i].length; j++) {
-				m[i][j] = 0;
-			}
-		}
+		
+		inicializaTablero(m);
 
 		String player1 = Utils.obtenerCadenaConDescripcion("Ingrese el nombre del jugador 1: ");
 		String player2 = Utils.obtenerCadenaConDescripcion("Ingrese el nombre del jugador 2: ");
@@ -77,6 +72,20 @@ public class Ejercicio_tresEnRaya {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param m
+	 */
+	
+	public static void inicializaTablero(int m[][]) {
+		
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = 0;
+			}
+		}
+	}
 
 	/**
 	 * 
@@ -96,6 +105,12 @@ public class Ejercicio_tresEnRaya {
 		
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 */
 	
 	public static boolean tableroLleno(int m[][]) {
 
