@@ -103,6 +103,8 @@ public class Ejercicio_tresEnRaya {
 			if(m[1][j] == m[2][j] && m[0][j] == m[1][j] && m[1][j] != 0) return true;
 		}
 		
+		if(m[0][0] == m[1][1] && m[1][1] == m[2][2] || m[0][2] == m[1][1] && m[1][1] == m[2][0]) return true;
+		
 		return false;
 	}
 	
