@@ -11,7 +11,7 @@ public class Ejercicio02_desplazarIntervalo {
 		int numeros[] = new int[10];
 		rellenarArray(numeros);
 		UtilsArrays.imprimeArray(numeros);
-		System.out.print(" // (0 - 9)");
+		System.out.print("// (0 - 9)\n");
 		int inicial = Utils.obtenerEnteroConDescripcion("Introduzca la posición inicial: ");
 		int fin = Utils.obtenerEnteroConDescripcion("Introduzca la posición final: ");
 		
@@ -21,7 +21,8 @@ public class Ejercicio02_desplazarIntervalo {
 			inicial = Utils.obtenerEnteroConDescripcion("Introduzca la posición inicial: ");
 			fin = Utils.obtenerEnteroConDescripcion("Introduzca la posición final: ");
 		}
-		
+		desplazarArray(numeros, inicial, fin);
+		UtilsArrays.imprimeArray(numeros);
 	}
 	
 	/**
@@ -34,5 +35,17 @@ public class Ejercicio02_desplazarIntervalo {
 		for (int i = 0; i < n.length; i++) {
 			n[i] = Utils.obtenerEnteroConDescripcion("Introduzca un valor: ");
 		}
+	}
+	
+	public static void desplazarArray(int n[], int min, int max) {
+		
+		int aux = n[n.length - 2];
+		for (int i = n.length - 2; i > 0; i--) {
+			if(i > max -1 || i < min - 1) {
+				n[i] = n[i - 1];
+			}
+		}
+		n[0] = n[n.length - 1];
+		n[n.length - 1] = aux;
 	}
 }
