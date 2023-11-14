@@ -25,7 +25,7 @@ public class Ejercicio05_movAlfilAjedrez {
 
 	/**
 	 * He tenido que recurrir a los if del principio en este método para que no se me saliera en el siguiente método de la length del String,
-	 * no he encontrado otra manera de hacerlo.
+	 * no he encontrado otra manera para hacerlo.
 	 * @param n
 	 * @return
 	 */
