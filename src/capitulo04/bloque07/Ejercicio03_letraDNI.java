@@ -10,7 +10,7 @@ public class Ejercicio03_letraDNI {
 		String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
 		int dni = Utils.obtenerEnteroConDescripcion("Introduzca los dígitos de su DNI: ");
 		
-		while(dni < 9999999 || dni > 99999999){
+		while(dni <= 9999999 || dni > 99999999){
 			
 			System.out.println("DNI no válido. Introduzca de nuevo: ");
 			dni = Utils.obtenerEnteroConDescripcion("Introduzca los dígitos de su DNI: ");
