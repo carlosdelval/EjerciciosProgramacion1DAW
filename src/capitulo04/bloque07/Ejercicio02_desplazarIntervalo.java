@@ -37,6 +37,13 @@ public class Ejercicio02_desplazarIntervalo {
 		}
 	}
 	
+	/**
+	 * 	
+	 * @param n
+	 * @param min
+	 * @param max
+	 */
+	
 	public static void desplazarArray(int n[], int min, int max) {
 		
 		int aux = n[n.length - 2];
