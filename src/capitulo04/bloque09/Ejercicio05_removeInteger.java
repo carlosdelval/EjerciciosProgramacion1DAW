@@ -7,14 +7,14 @@ public class Ejercicio05_removeInteger {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int a[] = new int[100];
-		UtilsArrays.inicializaArray(a, 0, 100);
+		int a[] = new int[25];
+		UtilsArrays.inicializaArray(a, 0, 10);
 		UtilsArrays.imprimeArray(a);
 		int n = Utils.obtenerEnteroConDescripcion("Introduzca el número a eliminar:");
 		a = removeInteger(a, n);
 		UtilsArrays.imprimeArray(a);
 	}
-	
+
 	/**
 	 * 
 	 * @param a
@@ -29,17 +29,16 @@ public class Ejercicio05_removeInteger {
 		int l = countOccurrences(a, n);
 		int a2[] = new int[a.length - l];
 		int j = 0;
-		while (j < a2.length) {
-			for (int i = 0; i < a.length; i++) {
-				if (a[i] != n) {
-					a2[j] = a[i];
-					j++;
-				}
+
+		for (int i = 0; i < a.length; i++) {
+			if (a[i] != n) {
+				a2[j] = a[i];
+				j++;
 			}
 		}
 		return a2;
 	}
-	
+
 	/**
 	 * 
 	 * @param a
