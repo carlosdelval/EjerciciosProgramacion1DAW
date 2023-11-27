@@ -17,6 +17,9 @@ public class Humano {
 	public void setNombre(String newNombre) {
 		nombre = newNombre;
 	}
+	public void recibirDisparo() {
+		puntosVida -= Utils.obtenerNumeroAzar(5, 25);
+	}
 	public int getPuntosVida() {
 		return puntosVida;
 	}

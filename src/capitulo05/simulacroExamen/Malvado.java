@@ -14,6 +14,9 @@ public class Malvado {
 	public String getNombre() {
 		return nombre;
 	}
+	public void recibirDisparo() {
+		puntosVida -= Utils.obtenerNumeroAzar(5, 25);
+	}
 	public void setNombre(String newNombre) {
 		nombre = newNombre;
 	}

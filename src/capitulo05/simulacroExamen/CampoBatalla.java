@@ -30,16 +30,6 @@ public class CampoBatalla {
 		// Mezclo los arrays mediante su respectivo método.
 		mezclaHumanos();
 		mezclaMalvados();
-		
-		// Comienza la batalla.
-		Humano primerHumanoVivo = getPrimerHumanoVivo();
-		if (primerHumanoVivo != null) { // Existe un humano vivo.
-			
-		}
-		Malvado primerMalvadoVivo = getPrimerMalvadoVivo();
-		if (primerMalvadoVivo != null) { // Existe un malvado vivo.
-			
-		}
 	}
 	
 	/**
@@ -47,7 +37,7 @@ public class CampoBatalla {
 	 *
 	 */
 	
-	private void mezclaHumanos () {
+	public void mezclaHumanos () {
 		for (int i = 0; i < humanos.length; i++) {
 			int azar1 = Utils.obtenerNumeroAzar(0, humanos.length - 1);
 			int azar2 = Utils.obtenerNumeroAzar(0, humanos.length - 1);
@@ -62,7 +52,7 @@ public class CampoBatalla {
 	 *
 	 */
 	
-	private void mezclaMalvados () {
+	public void mezclaMalvados () {
 		for (int i = 0; i < malvados.length; i++) {
 			int azar1 = Utils.obtenerNumeroAzar(0, malvados.length - 1);
 			int azar2 = Utils.obtenerNumeroAzar(0, malvados.length - 1);
@@ -77,17 +67,34 @@ public class CampoBatalla {
 	 * @return
 	 */
 	
-	private Humano getPrimerHumanoVivo() {
+	public Humano getPrimerHumanoVivo() {
 		for (int i = 0; i < humanos.length; i++) {
 			if(humanos[i].isVivo()) return humanos[i];
 		}
 		return null;
 	}
 	
-	private Malvado getPrimerMalvadoVivo() {
+	/**
+	 * 
+	 * @return
+	 */
+	
+	public Malvado getPrimerMalvadoVivo() {
 		for (int i = 0; i < malvados.length; i++) {
 			if(malvados[i].isVivo()) return malvados[i];
 		}
 		return null;
+	}
+	
+	public void muestraEstadoActual() {
+		for (int i = 0; i < humanos.length; i++) {
+			System.out.print(humanos[i] + "-");
+		}
+		System.out.println();
+		for (int i = 0; i < malvados.length; i++) {
+			System.out.print(malvados[i] + "-");
+		}
+		System.out.println();
+		System.out.println();
 	}
 }
