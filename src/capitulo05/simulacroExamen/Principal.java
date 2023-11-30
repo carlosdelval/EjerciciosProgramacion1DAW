@@ -25,5 +25,17 @@ public class Principal {
 			sc.nextLine();
 			
 		}while(campo.getPrimerHumanoVivo() != null && campo.getPrimerMalvadoVivo() != null);
+		
+		if(campo.getPrimerHumanoVivo() != null) {
+			System.out.println("Han ganado los humanos.");
+		}
+		else {
+			if(campo.getPrimerMalvadoVivo() != null) {
+				System.out.println("Han ganado los malvados.");
+			}
+			else {
+				System.out.println("Hay empate.");
+			}
+		}
 	}
 }

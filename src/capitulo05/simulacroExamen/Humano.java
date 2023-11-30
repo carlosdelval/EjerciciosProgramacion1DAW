@@ -19,6 +19,10 @@ public class Humano {
 	}
 	public void recibirDisparo() {
 		puntosVida -= Utils.obtenerNumeroAzar(5, 25);
+		if(puntosVida <= 0) {
+			vivo = false;
+			puntosVida = 0;
+		}
 	}
 	public int getPuntosVida() {
 		return puntosVida;
