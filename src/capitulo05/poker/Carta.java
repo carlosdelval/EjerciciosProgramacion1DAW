@@ -19,6 +19,11 @@ public class Carta {
 	}
 	
 	public String toString() {
-		return num + " de " + palo;
+		if (num > 1 && num < 11) return num + " de " + palo;
+		if (num == 1) return "As de " + palo;
+		if (num == 11) return "J de " + palo;
+		if (num == 12) return "Q de " + palo;
+		if (num == 13) return "K de " + palo;
+		else return null;
 	}
 }
