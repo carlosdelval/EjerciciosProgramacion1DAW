@@ -1,4 +1,4 @@
-package capitulo06.bloque01;
+package capitulo06.listas;
 
 import java.util.ArrayList;
 import java.util.Iterator;
