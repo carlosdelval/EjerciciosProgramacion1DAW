@@ -167,24 +167,21 @@ public class Arkanoid {
 	private List<Actor> creaActores () {
 		List<Actor> actores = new ArrayList<Actor>();
 		
+		String color = "GREEN";
+		int yLadrillo = 30;
 		//Construyo los ladrillos
-		int posLadrillo = 55;
-		for (int i = 0; i < 4; i++) {
-			Ladrillo ladrillo = new Ladrillo(posLadrillo, 50, Ladrillo.IMAGEN_LADRILLO, "GREEN");
-			actores.add(ladrillo);
-			posLadrillo += 100;
-		}
-		posLadrillo = 55;	
-		for (int i = 0; i < 4; i++) {
-			Ladrillo ladrillo = new Ladrillo(posLadrillo, 110, Ladrillo.IMAGEN_LADRILLO, "BLUE");
-			actores.add(ladrillo);
-			posLadrillo += 100;
-		}
-		posLadrillo = 55;
-		for (int i = 0; i < 4; i++) {
-			Ladrillo ladrillo = new Ladrillo(posLadrillo, 170, Ladrillo.IMAGEN_LADRILLO, "RED");
-			actores.add(ladrillo);
-			posLadrillo += 100;
+		for (int i = 0; i < 5; i++) {
+			int xLadrillo = 58;
+			if(i == 1) color = "RED";
+			if(i == 2) color = "BLUE";
+			if(i == 3) color = "YELLOW";
+			if(i == 4) color = "MAGENTA";
+			for (int j = 0; j < 5; j++) {
+				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, Ladrillo.IMAGEN_LADRILLO, color);
+				actores.add(ladrillo);
+				xLadrillo += 80;
+			}
+			yLadrillo += 45;
 		}
 		
 		//Construyo un player para este juego y lo agrego a la lista

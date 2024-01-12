@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class Ladrillo extends Actor{
 	private String color;
-	private int ancho = 80;
-	private int alto = 50;
+	private int ancho = 60;
+	private int alto = 30;
 	private int x;
 	private int y;
 	
@@ -86,6 +86,10 @@ public class Ladrillo extends Actor{
 			g.setColor(Color.RED);
 		if(color == "BLUE")
 			g.setColor(Color.BLUE);
+		if(color == "YELLOW")
+			g.setColor(Color.YELLOW);
+		if(color == "MAGENTA")
+			g.setColor(Color.MAGENTA);
 		g.fillRect(x, y, ancho, alto);
 	}
 
