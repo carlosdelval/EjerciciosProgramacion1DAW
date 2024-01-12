@@ -1,11 +1,9 @@
 package arkanoid;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -145,6 +143,8 @@ public class Arkanoid {
 				a.actua();
 			}
 			
+			detectaColisiones();
+			
 			// Calculo los millis que debemos parar el proceso, generando 60 FPS.
 			long millisDespuesDeProcesarEscena = new Date().getTime();
 			int millisDeProcesamientoDeEscena = (int) (millisDespuesDeProcesarEscena - millisAntesDeProcesarEscena);
@@ -171,7 +171,7 @@ public class Arkanoid {
 		int yLadrillo = 30;
 		//Construyo los ladrillos
 		for (int i = 0; i < 5; i++) {
-			int xLadrillo = 58;
+			int xLadrillo = 55;
 			if(i == 1) color = "RED";
 			if(i == 2) color = "BLUE";
 			if(i == 3) color = "YELLOW";
@@ -181,10 +181,10 @@ public class Arkanoid {
 				actores.add(ladrillo);
 				xLadrillo += 80;
 			}
-			yLadrillo += 45;
+			yLadrillo += 55;
 		}
 		
-		//Construyo un player para este juego y lo agrego a la lista
+		//Construyo un player para este juego
 		jugador = new Player(300, 300, Player.IMAGEN_PLAYER);
 		actores.add(jugador);
 		
@@ -196,6 +196,31 @@ public class Arkanoid {
 		
 		// Devuelvo la lista con todos los actores del juego
 		return actores;
+	}
+	
+	private void detectaColisiones() {
+		// Una vez que cada actor ha actuado, intento detectar colisiones entre los actores y notificarlas. Para detectar
+		// estas colisiones, no nos queda más remedio que intentar detectar la colisión de cualquier actor con cualquier otro
+		// sólo con la excepción de no comparar un actor consigo mismo.
+		// La detección de colisiones se va a baser en formar un rectángulo con las medidas que ocupa cada actor en pantalla,
+		// De esa manera, las colisiones se traducirán en intersecciones entre rectángulos.
+		for (Actor actor1 : this.actores) {
+			// Creo un rectángulo para este actor.
+			Rectangle rect1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
+			// Compruebo un actor con cualquier otro actor
+			for (Actor actor2 : this.actores) {
+				// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
+				if (!actor1.equals(actor2)) {
+					// Formo el rectángulo del actor 2
+					Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
+					// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
+					if (rect1.intersects(rect2)) {
+						actor1.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
+						actor2.colisionaCon(actor1); // El actor 2 colisiona con el actor 1
+					}
+				}
+			}
+		}
 	}
 
 	/**

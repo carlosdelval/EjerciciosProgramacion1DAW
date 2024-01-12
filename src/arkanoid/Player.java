@@ -15,6 +15,9 @@ public class Player extends Actor {
 	private boolean izquierda = false, derecha = false;
 	// Velocidad de la nave, expresada en píxeles por cada frame
 	public static int VELOCIDAD = 8;
+	public static int ancho = 100;
+	public static int alto = 20;
+	public static int y = 700;
 
 	/**
 	 * Constructor por defecto "default constructor"
@@ -22,6 +25,8 @@ public class Player extends Actor {
 	public Player() {
 		super();
 	}
+	
+	
 
 	/**
 	 * Constructor que inicializa las propiedades del objeto
@@ -34,6 +39,8 @@ public class Player extends Actor {
 		super(x, y, img);
 		this.velocidadX = 0;
 	}
+	
+	
 
 	/**
 	 * Obtención de un String con todos los datos de un objeto Player
@@ -48,7 +55,7 @@ public class Player extends Actor {
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.CYAN);
-		g.fillRect(this.x, 700, 100, 20);
+		g.fillRect(this.x, y, ancho, alto);
 	}
 
 	@Override
@@ -58,7 +65,7 @@ public class Player extends Actor {
 		if (derecha) this.x += VELOCIDAD;
 		
 		// Compruebo si el player sale del canvas por cualquiera de los cuatro márgenes
-		mover(this.x, this.y);
+		mover(this.x);
 	}
 
 	/**
@@ -68,15 +75,14 @@ public class Player extends Actor {
 	 * @param x
 	 * @param y
 	 */
-	public void mover(int x, int y) {
+	public void mover(int x) {
 		this.x = x;
-		this.y = y;
 		// Controlo los casos en los que el jugador pueda salir del Canvas
 		MiCanvas canvas = Arkanoid.getInstance().getCanvas(); // Referencia al objeto Canvas usado
 		
 		// Compruebo si el jugador sale por la derecha
-		if (this.x > (canvas.getWidth() - 100)) {
-			this.x = canvas.getWidth() - 100;
+		if (this.x > (canvas.getWidth() - ancho)) {
+			this.x = canvas.getWidth() - ancho;
 		}
 
 		// Compruebo si el jugador sale por la izquierda

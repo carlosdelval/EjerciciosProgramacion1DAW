@@ -42,6 +42,9 @@ public abstract class Actor {
 	 * Método que permite que cada actor realice las acciones que necesite en la creación de cada Frame
 	 */
 	public abstract void actua ();
+	
+	public void colisionaCon(Actor a) {
+	}
 
 	/**
 	 * @return the x
