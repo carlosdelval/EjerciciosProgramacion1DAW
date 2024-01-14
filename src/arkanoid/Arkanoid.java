@@ -22,6 +22,7 @@ public class Arkanoid {
 	private static int FPS = 60;
 	private JFrame ventana = null;
 	private List<Actor> actores = new ArrayList<Actor>();
+	private List<Actor> actoresParaEliminar = new ArrayList<Actor>();
 	private MiCanvas canvas = null;
 	Player jugador = null;
 	
@@ -144,6 +145,7 @@ public class Arkanoid {
 			}
 			
 			detectaColisiones();
+			actualizaActores();
 			
 			// Calculo los millis que debemos parar el proceso, generando 60 FPS.
 			long millisDespuesDeProcesarEscena = new Date().getTime();
@@ -196,6 +198,23 @@ public class Arkanoid {
 		
 		// Devuelvo la lista con todos los actores del juego
 		return actores;
+	}
+	
+	/**
+	 * Método llamado para eliminar actores del juego
+	 * @param a
+	 */
+	public void eliminaActor (Actor a) {
+		this.actoresParaEliminar.add(a);
+	}
+	
+	private void actualizaActores () {
+		
+		// Elimino los actores que se deben eliminar
+		for (Actor a : this.actoresParaEliminar) {
+			this.actores.remove(a);
+		}
+		this.actoresParaEliminar.clear(); // Limpio la lista de actores a eliminar, ya los he eliminado
 	}
 	
 	private void detectaColisiones() {

@@ -60,7 +60,9 @@ public class Pelota extends Actor {
 	public void colisionaCon(Actor a) {
 		super.colisionaCon(a);
 		
-		this.velocidadY = -this.velocidadY;
+		if(a instanceof Pelota) {
+			this.velocidadY = -this.velocidadY;
+		}
 	}
 
 }

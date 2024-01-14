@@ -98,5 +98,13 @@ public class Ladrillo extends Actor{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void colisionaCon(Actor a) {
+		super.colisionaCon(a);
+		
+		if(a instanceof Pelota) {
+			Arkanoid.getInstance().eliminaActor(this);
+		}
+	}
 
 }
