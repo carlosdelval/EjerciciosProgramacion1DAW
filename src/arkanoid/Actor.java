@@ -9,7 +9,7 @@ import java.awt.Graphics;
 public abstract class Actor {
 	// Propiedades protegidas (visibles en la propia clase y en los subtipos) de cada actor
 	protected int x, y; // Coordenadas x e y del actor
-	protected int ancho = 30, alto = 30; // ancho y alto que ocupa el actor en pantalla
+	protected int ancho, alto; // ancho y alto que ocupa el actor en pantalla
 	protected String img; // Imagen del actor
 	protected int velocidadX = 0; // Velocidades en cada eje
 	protected int velocidadY = 0;

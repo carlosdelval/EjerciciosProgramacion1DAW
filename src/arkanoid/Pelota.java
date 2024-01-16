@@ -8,8 +8,6 @@ public class Pelota extends Actor {
 	
 	//Propiedades estáticas de esta clase
 	public static String IMAGEN_BOLA = "bola.jpg";
-	public static int ancho = 20;
-	public static int alto = 20;
 	
 	/**
 	 * Constructor sin argumentos de entrada
@@ -27,6 +25,8 @@ public class Pelota extends Actor {
 		super(x, y, img);
 		this.velocidadX = 5;
 		this.velocidadY = 5;
+		ancho = 20;
+		alto = 20;
 	}
 	
 	// Getters y Setters 
@@ -51,7 +51,7 @@ public class Pelota extends Actor {
 		
 		// Copiamos el esquema anterior para el movimiento vertical
 		this.y += this.velocidadY;
-		// Si el monstruo abandona la escena por la izquierda o la derecha, rebota
+		// Si el monstruo abandona la escena por arriba o por abajo, rebota
 		if (this.y < 0 || (this.y + alto) > Arkanoid.getInstance().getCanvas().getHeight()) {
 			this.velocidadY = -this.velocidadY;
 		}
@@ -60,8 +60,8 @@ public class Pelota extends Actor {
 	public void colisionaCon(Actor a) {
 		super.colisionaCon(a);
 		
-		if(a instanceof Pelota) {
-			this.velocidadY = -this.velocidadY;
+		if(a instanceof Ladrillo || a instanceof Player) {
+				this.velocidadY = -this.velocidadY;
 		}
 	}
 

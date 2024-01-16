@@ -9,6 +9,7 @@ public class Ladrillo extends Actor{
 	private int alto = 30;
 	private int x;
 	private int y;
+	private int pvida;
 	
 	
 	//Propiedades estáticas de esta clase
@@ -25,6 +26,11 @@ public class Ladrillo extends Actor{
 		color = Color;
 		x = X;
 		y = Y;
+		if(color == "GREEN") pvida = 1;
+		if(color == "RED") pvida = 2;
+		if(color == "BLUE") pvida = 4;
+		if(color == "YELLOW") pvida = 8;
+		if(color == "MAGENTA") pvida = 20;
 	}
 	
 	// Getters y Setters 
@@ -103,7 +109,11 @@ public class Ladrillo extends Actor{
 		super.colisionaCon(a);
 		
 		if(a instanceof Pelota) {
+			if(pvida == 0) {
 			Arkanoid.getInstance().eliminaActor(this);
+			}else {
+				pvida = pvida - 1;
+			}
 		}
 	}
 

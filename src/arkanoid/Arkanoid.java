@@ -23,8 +23,10 @@ public class Arkanoid {
 	private JFrame ventana = null;
 	private List<Actor> actores = new ArrayList<Actor>();
 	private List<Actor> actoresParaEliminar = new ArrayList<Actor>();
+	private List<Actor> actoresParaIncorporar = new ArrayList<Actor>();
 	private MiCanvas canvas = null;
 	Player jugador = null;
+	Pelota bola;
 	
 	// Para utilizar un patrón singleton necesitamos la siguiente propiedad estática
 	private static Arkanoid instance = null;
@@ -169,16 +171,20 @@ public class Arkanoid {
 	private List<Actor> creaActores () {
 		List<Actor> actores = new ArrayList<Actor>();
 		
-		String color = "GREEN";
 		int yLadrillo = 30;
 		//Construyo los ladrillos
 		for (int i = 0; i < 5; i++) {
 			int xLadrillo = 55;
-			if(i == 1) color = "RED";
-			if(i == 2) color = "BLUE";
-			if(i == 3) color = "YELLOW";
-			if(i == 4) color = "MAGENTA";
 			for (int j = 0; j < 5; j++) {
+				String color = "GREEN";
+				if(i != 4) {
+					int num = numAleatorio(0,5);
+					if(num == 0) color = "GREEN";
+					if(num == 1) color = "RED";
+					if(num == 2) color = "BLUE";
+					if(num == 3) color = "YELLOW";
+					if(num == 4) color = "MAGENTA";
+				}
 				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, Ladrillo.IMAGEN_LADRILLO, color);
 				actores.add(ladrillo);
 				xLadrillo += 80;
@@ -187,17 +193,23 @@ public class Arkanoid {
 		}
 		
 		//Construyo un player para este juego
-		jugador = new Player(300, 300, Player.IMAGEN_PLAYER);
+		jugador = new Player(300, 700, Player.IMAGEN_PLAYER);
 		actores.add(jugador);
 		
 		// Creo la Pelota
-		int xAleatoria = numAleatorio(10, 500);
-		int yAleatoria = numAleatorio(10, 200);
-		Pelota bola = new Pelota(xAleatoria, yAleatoria, Pelota.IMAGEN_BOLA);
+		bola = new Pelota(150, 300, Pelota.IMAGEN_BOLA);
 		actores.add(bola);
 		
 		// Devuelvo la lista con todos los actores del juego
 		return actores;
+	}
+	
+	/**
+	 * Método llamado para incorporar nuevos actores
+	 * @param a
+	 */
+	public void incorporaNuevoActor (Actor a) {
+		this.actoresParaIncorporar.add(a);
 	}
 	
 	/**
@@ -209,7 +221,12 @@ public class Arkanoid {
 	}
 	
 	private void actualizaActores () {
-		
+		// Incorporo los nuevos actores
+		for (Actor a : this.actoresParaIncorporar) {
+			this.actores.add(a);
+		}
+		this.actoresParaIncorporar.clear(); // Limpio la lista de actores a incorporar, ya están incorporados
+
 		// Elimino los actores que se deben eliminar
 		for (Actor a : this.actoresParaEliminar) {
 			this.actores.remove(a);
@@ -223,20 +240,19 @@ public class Arkanoid {
 		// sólo con la excepción de no comparar un actor consigo mismo.
 		// La detección de colisiones se va a baser en formar un rectángulo con las medidas que ocupa cada actor en pantalla,
 		// De esa manera, las colisiones se traducirán en intersecciones entre rectángulos.
-		for (Actor actor1 : this.actores) {
-			// Creo un rectángulo para este actor.
-			Rectangle rect1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
-			// Compruebo un actor con cualquier otro actor
-			for (Actor actor2 : this.actores) {
-				// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
-				if (!actor1.equals(actor2)) {
-					// Formo el rectángulo del actor 2
-					Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
-					// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
-					if (rect1.intersects(rect2)) {
-						actor1.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
-						actor2.colisionaCon(actor1); // El actor 2 colisiona con el actor 1
-					}
+		// Creo un rectángulo para este actor.
+		Actor actor1 = this.bola;
+		Rectangle rect1 = new Rectangle(actor1.getX(), actor1.getY(), actor1.getAncho(), actor1.getAlto());
+		// Compruebo un actor con cualquier otro actor
+		for (Actor actor2 : this.actores) {
+			// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
+			if (!actor1.equals(actor2)) {
+				// Formo el rectángulo del actor 2
+				Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
+				// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
+				if (rect1.intersects(rect2)) {
+					actor1.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
+					actor2.colisionaCon(actor1); // El actor 2 colisiona con el actor 1
 				}
 			}
 		}

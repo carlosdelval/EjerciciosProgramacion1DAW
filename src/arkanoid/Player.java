@@ -15,9 +15,6 @@ public class Player extends Actor {
 	private boolean izquierda = false, derecha = false;
 	// Velocidad de la nave, expresada en píxeles por cada frame
 	public static int VELOCIDAD = 8;
-	public static int ancho = 100;
-	public static int alto = 20;
-	public static int y = 700;
 
 	/**
 	 * Constructor por defecto "default constructor"
@@ -38,6 +35,8 @@ public class Player extends Actor {
 	public Player(int x, int y, String img) {
 		super(x, y, img);
 		this.velocidadX = 0;
+		ancho = 100;
+		alto = 20;
 	}
 	
 	
@@ -55,7 +54,7 @@ public class Player extends Actor {
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.CYAN);
-		g.fillRect(this.x, y, ancho, alto);
+		g.fillRect(this.x, 700, ancho, alto);
 	}
 
 	@Override
