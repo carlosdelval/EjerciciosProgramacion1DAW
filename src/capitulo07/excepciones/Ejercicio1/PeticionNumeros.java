@@ -1,12 +1,24 @@
 package capitulo07.excepciones.Ejercicio1;
 
-public class PeticionNumeros extends Exception {
-	
-	public PeticionNumeros(String msg) {
-		super(msg);
+import tutorialJava.Utils;
+
+public class PeticionNumeros {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int num;
+		try {
+			num = pideNumeroPar();
+		} catch (numeroImparException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public static void pideNumeroPar(int numIntroducido) {
-		if(numIntroducido % 2 != 0)System.out.println("numeroIntroducido.exception .... El número introducido es impar");
+	public static int pideNumeroPar() throws numeroImparException {
+		int num = Utils.obtenerEnteroConDescripcion("Introduzca un número par: ");
+		if(num % 2 != 0) throw new numeroImparException("El número es impar");
+		return num;
 	}
+
 }
