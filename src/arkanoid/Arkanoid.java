@@ -139,7 +139,7 @@ public class Arkanoid {
 			long millisAntesDeProcesarEscena = new Date().getTime();
 			
 			// Redibujo la escena
-			canvas.repaint();
+			canvas.pintaEscena();
 			
 			// Recorro todos los actores, consiguiendo que cada uno de ellos actúe
 			for (Actor a : actores) {
@@ -185,7 +185,7 @@ public class Arkanoid {
 					if(num == 3) color = "YELLOW";
 					if(num == 4) color = "MAGENTA";
 				}
-				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, Ladrillo.IMAGEN_LADRILLO, color);
+				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, color);
 				actores.add(ladrillo);
 				xLadrillo += 80;
 			}
@@ -193,11 +193,11 @@ public class Arkanoid {
 		}
 		
 		//Construyo un player para este juego
-		jugador = new Player(300, 700, Player.IMAGEN_PLAYER);
+		jugador = new Player(ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER).getWidth(), ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER).getHeight());
 		actores.add(jugador);
 		
 		// Creo la Pelota
-		bola = new Pelota(150, 300, Pelota.IMAGEN_BOLA);
+		bola = new Pelota(ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA).getWidth(), ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA).getHeight());
 		actores.add(bola);
 		
 		// Devuelvo la lista con todos los actores del juego

@@ -2,6 +2,7 @@ package arkanoid;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 
 public class Pelota extends Actor {
@@ -21,8 +22,8 @@ public class Pelota extends Actor {
 	 * @param x
 	 * @param y
 	 */
-	public Pelota(int x, int y, String img) {
-		super(x, y, img);
+	public Pelota(int x, int y) {
+		super(x, y, ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA));
 		this.velocidadX = 5;
 		this.velocidadY = 5;
 		ancho = 20;
@@ -36,8 +37,7 @@ public class Pelota extends Actor {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillOval(this.x, this.y, ancho, alto);
+		g.drawImage(this.img, this.x, this.y, null);
 	}
 
 	@Override

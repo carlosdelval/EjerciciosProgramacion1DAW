@@ -3,6 +3,7 @@ package arkanoid;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 /**
  * Clase que representa un player en el juego
@@ -32,8 +33,8 @@ public class Player extends Actor {
 	 * @param y
 	 * @param img
 	 */
-	public Player(int x, int y, String img) {
-		super(x, y, img);
+	public Player(int x, int y) {
+		super(x, y, ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER));
 		this.velocidadX = 0;
 		ancho = 100;
 		alto = 20;
@@ -53,8 +54,7 @@ public class Player extends Actor {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(Color.CYAN);
-		g.fillRect(this.x, 700, ancho, alto);
+		g.drawImage(this.img, this.x, 700, null);
 	}
 
 	@Override

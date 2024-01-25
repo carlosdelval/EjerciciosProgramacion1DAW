@@ -2,6 +2,7 @@ package arkanoid;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class Ladrillo extends Actor{
 	private String color;
@@ -22,7 +23,7 @@ public class Ladrillo extends Actor{
 	 * @param img
 	 * @param Color
 	 */
-	public Ladrillo(int X, int Y, String img, String Color) {
+	public Ladrillo(int X, int Y, String Color) {
 		color = Color;
 		x = X;
 		y = Y;
