@@ -170,22 +170,20 @@ public class Arkanoid {
 	 */
 	private List<Actor> creaActores () {
 		List<Actor> actores = new ArrayList<Actor>();
-		
+		Ladrillo ladrillo = null;
 		int yLadrillo = 30;
 		//Construyo los ladrillos
 		for (int i = 0; i < 5; i++) {
-			int xLadrillo = 55;
+			int xLadrillo = 60;
 			for (int j = 0; j < 5; j++) {
-				String color = "GREEN";
 				if(i != 4) {
-					int num = numAleatorio(0,5);
-					if(num == 0) color = "GREEN";
-					if(num == 1) color = "RED";
-					if(num == 2) color = "BLUE";
-					if(num == 3) color = "YELLOW";
-					if(num == 4) color = "MAGENTA";
+					int num = numAleatorio(0,4);
+					if(num == 0) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "GREEN", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOVERDE));
+					if(num == 1) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "RED", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOROJO));
+					if(num == 2) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "BLUE", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOAZUL));
+					if(num == 3) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "YELLOW", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOAMARILLO));
+					if(num == 4) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "MAGENTA", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOMAGENTA));
 				}
-				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, color);
 				actores.add(ladrillo);
 				xLadrillo += 80;
 			}
@@ -193,11 +191,11 @@ public class Arkanoid {
 		}
 		
 		//Construyo un player para este juego
-		jugador = new Player(ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER).getWidth(), ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER).getHeight());
+		jugador = new Player(ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER).getWidth(), 700);
 		actores.add(jugador);
 		
 		// Creo la Pelota
-		bola = new Pelota(ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA).getWidth(), ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA).getHeight());
+		bola = new Pelota(1, 300);
 		actores.add(bola);
 		
 		// Devuelvo la lista con todos los actores del juego

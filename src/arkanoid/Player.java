@@ -36,8 +36,8 @@ public class Player extends Actor {
 	public Player(int x, int y) {
 		super(x, y, ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_PLAYER));
 		this.velocidadX = 0;
-		ancho = 100;
-		alto = 20;
+		ancho = this.img.getWidth();
+		alto = this.img.getHeight();
 	}
 	
 	

@@ -26,8 +26,8 @@ public class Pelota extends Actor {
 		super(x, y, ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_BOLA));
 		this.velocidadX = 5;
 		this.velocidadY = 5;
-		ancho = 20;
-		alto = 20;
+		ancho = this.img.getWidth();
+		alto = this.img.getHeight();
 	}
 	
 	// Getters y Setters 

@@ -6,11 +6,12 @@ import java.awt.image.BufferedImage;
 
 public class Ladrillo extends Actor{
 	private String color;
-	private int ancho = 60;
-	private int alto = 30;
+	private int ancho;
+	private int alto;
 	private int x;
 	private int y;
 	private int pvida;
+	BufferedImage img;
 	
 	
 	//Propiedades estáticas de esta clase
@@ -23,15 +24,18 @@ public class Ladrillo extends Actor{
 	 * @param img
 	 * @param Color
 	 */
-	public Ladrillo(int X, int Y, String Color) {
+	public Ladrillo(int X, int Y, String Color, BufferedImage ladrilloColor) {
 		color = Color;
+		img = ladrilloColor;
 		x = X;
 		y = Y;
+		ancho = this.img.getWidth();
+		alto = this.img.getHeight();
 		if(color == "GREEN") pvida = 1;
 		if(color == "RED") pvida = 2;
 		if(color == "BLUE") pvida = 4;
-		if(color == "YELLOW") pvida = 8;
-		if(color == "MAGENTA") pvida = 20;
+		if(color == "YELLOW") pvida = 6;
+		if(color == "MAGENTA") pvida = 8;
 	}
 	
 	// Getters y Setters 
@@ -87,17 +91,7 @@ public class Ladrillo extends Actor{
 
 	@Override
 	public void paint(Graphics g) {
-		if(color == "GREEN")
-			g.setColor(Color.GREEN);
-		if(color == "RED")
-			g.setColor(Color.RED);
-		if(color == "BLUE")
-			g.setColor(Color.BLUE);
-		if(color == "YELLOW")
-			g.setColor(Color.YELLOW);
-		if(color == "MAGENTA")
-			g.setColor(Color.MAGENTA);
-		g.fillRect(x, y, ancho, alto);
+		g.drawImage(this.img, this.x, this.y, null);
 	}
 
 	@Override
