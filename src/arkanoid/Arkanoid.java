@@ -174,7 +174,7 @@ public class Arkanoid {
 		int yLadrillo = 30;
 		//Construyo los ladrillos
 		for (int i = 0; i < 5; i++) {
-			int xLadrillo = 60;
+			int xLadrillo = 35;
 			for (int j = 0; j < 5; j++) {
 				if(i != 4) {
 					int num = numAleatorio(0,4);
@@ -185,9 +185,9 @@ public class Arkanoid {
 					if(num == 4) ladrillo = new Ladrillo(xLadrillo, yLadrillo, "MAGENTA", ImagesCache.getInstance().getImagen(ImagesCache.IMAGEN_LADRILLOMAGENTA));
 				}
 				actores.add(ladrillo);
-				xLadrillo += 80;
+				xLadrillo += 90;
 			}
-			yLadrillo += 55;
+			yLadrillo += 60;
 		}
 		
 		//Construyo un player para este juego
