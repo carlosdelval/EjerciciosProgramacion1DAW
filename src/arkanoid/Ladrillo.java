@@ -33,9 +33,9 @@ public class Ladrillo extends Actor{
 		alto = this.img.getHeight();
 		if(color == "GREEN") pvida = 1;
 		if(color == "RED") pvida = 2;
-		if(color == "BLUE") pvida = 4;
-		if(color == "YELLOW") pvida = 6;
-		if(color == "MAGENTA") pvida = 8;
+		if(color == "BLUE") pvida = 2;
+		if(color == "YELLOW") pvida = 3;
+		if(color == "MAGENTA") pvida = 4;
 	}
 	
 	// Getters y Setters 
@@ -106,6 +106,7 @@ public class Ladrillo extends Actor{
 		if(a instanceof Pelota) {
 			if(pvida == 0) {
 			Arkanoid.getInstance().eliminaActor(this);
+			Arkanoid.getInstance().incorporaNuevoActor(new Explosion(this.x + (this.ancho/2), this.y));
 			}else {
 				pvida = pvida - 1;
 			}

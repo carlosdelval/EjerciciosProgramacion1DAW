@@ -22,7 +22,6 @@ public class ImagesCache {
 	public static String IMAGEN_LADRILLOROJO = "ladrilloRojo.gif";
 	public static String IMAGEN_LADRILLOAZUL = "ladrilloAzul.gif";
 	public static String IMAGEN_LADRILLOAMARILLO = "ladrilloAmarillo.gif";
-	public static String IMAGEN_EXPLOSION = "explosion.gif";
 	
 
 	
