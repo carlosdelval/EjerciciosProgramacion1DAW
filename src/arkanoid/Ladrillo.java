@@ -31,11 +31,11 @@ public class Ladrillo extends Actor{
 		y = Y;
 		ancho = this.img.getWidth();
 		alto = this.img.getHeight();
-		if(color == "GREEN") pvida = 1;
-		if(color == "RED") pvida = 2;
-		if(color == "BLUE") pvida = 2;
-		if(color == "YELLOW") pvida = 3;
-		if(color == "MAGENTA") pvida = 4;
+		if(color == "GREEN") pvida = 0;
+		if(color == "RED") pvida = 0;
+		if(color == "BLUE") pvida = 0;
+		if(color == "YELLOW") pvida = 0;
+		if(color == "MAGENTA") pvida = 0;
 	}
 	
 	// Getters y Setters 
