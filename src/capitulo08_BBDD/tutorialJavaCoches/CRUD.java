@@ -59,8 +59,8 @@ public class CRUD {
 				
 		Statement s = (Statement) conn.createStatement(); 
 
-		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.concesionario "
-				+ "(id, cif, nombre, localidad) values ("
+		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.fabricante "
+				+ "(id, cif, nombre) values ("
 				+ getSiguienteIdValidoFabricante(conn) 
 				+ ", '" + cif + "', '" + nombre + "')");
 	   
@@ -84,7 +84,8 @@ public class CRUD {
 				+ "cif = '" + cifMod + "'\r\n"
 				+ "where id = " + idMod);
 	   
-		System.out.println("Filas afectadas: " + filasAfectadas);
+		if(filasAfectadas > 0) System.out.println("Filas afectadas: " + filasAfectadas);
+		else System.out.println("No se ha encontrado dupla o fila con ese ID.");
 		
 		s.close();
 	}
@@ -103,7 +104,8 @@ public class CRUD {
 				+ "tutorialjavacoches.fabricante "
 				+ "where id = " + idMod);
 	   
-		System.out.println("Filas afectadas: " + filasAfectadas);
+		if(filasAfectadas > 0) System.out.println("Filas afectadas: " + filasAfectadas);
+		else System.out.println("No se ha encontrado dupla o fila con ese ID.");
 		
 		s.close();
 	}
@@ -126,13 +128,12 @@ public class CRUD {
 			
 			// La ejecución de la consulta se realiza a través del objeto Statement y se recibe en forma de objeto
 			// de tipo ResultSet, que puede ser navegado para descubrir todos los registros obtenidos por la consulta
-			ResultSet rs = s.executeQuery ("select * from coche");
+			ResultSet rs = s.executeQuery ("select * from fabricante");
 		   
 			// Navegación del objeto ResultSet
 			while (rs.next()) { 
 				System.out.println (rs.getInt("id") + " " + rs.getString (2)+ 
-						" " + rs.getString(3) + " " + rs.getString(4) + 
-						" " + rs.getString(5)); 
+						" " + rs.getString(3));
 			}
 			// Cierre de los elementos
 			rs.close();
@@ -165,8 +166,7 @@ public class CRUD {
 		int opcion = 5;
 
 		while (opcion != 0) {
-			System.out.println("Pulse una tecla para empezar..");
-			sc.nextLine();
+			System.out.println();
 			opcion = Utils.obtenerEnteroConDescripcion("Ingrese la acción a realizar: " + "\n0. Abandonar el programa."
 					+ "\n1. Listar todos los registros de la tabla." + "\n2. Crear un nuevo Fabricante."
 					+ "\n3. Modificar un Fabricante."
@@ -179,11 +179,15 @@ public class CRUD {
 				realizaInsert(conn, Utils.obtenerCadenaConDescripcion("Introduzca el cif: "), Utils.obtenerCadenaConDescripcion("Introduzca el nombre: "));
 			}
 			if (opcion == 3) {
-				realizaUpdate(conn, Utils.obtenerCadenaConDescripcion("Introduzca el nuevo nombre: "), Utils.obtenerCadenaConDescripcion("Introduzca el nuevo cif: "), Utils.obtenerEnteroConDescripcion("Introduzca el id a modificar: "));
+				int newId = Utils.obtenerEnteroConDescripcion("Introduzca el id a modificar: ");
+				realizaUpdate(conn, Utils.obtenerCadenaConDescripcion("Introduzca el nuevo nombre: "), Utils.obtenerCadenaConDescripcion("Introduzca el nuevo cif: "), newId);
 			}
 			if (opcion == 4) {
-				realizaDelete(conn, Utils.obtenerEnteroConDescripcion("Introduzca el id del elemento a borrar: "));
+				int newId = Utils.obtenerEnteroConDescripcion("Introduzca el id del elemento a borrar: ");
+				realizaDelete(conn, newId);
 			}
 		}
+		System.out.println();
+		System.out.println("Fin del programa.");
 	}
 }
