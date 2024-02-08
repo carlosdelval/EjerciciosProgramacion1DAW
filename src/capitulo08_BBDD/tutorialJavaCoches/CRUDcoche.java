@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 import tutorialJava.Utils;
 
-public class CRUDfabricante {
-
+public class CRUDcoche {
 	/**
 	 * 
 	 * @return
@@ -39,9 +38,9 @@ public class CRUDfabricante {
 	 * @throws SQLException
 	 */
 
-	public static Boolean comprobarID(Connection conn, int id) throws SQLException {
+	private static Boolean comprobarID(Connection conn, int id) throws SQLException {
 		Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("select * from fabricante where id= " + id);
+		ResultSet rs = s.executeQuery("select * from coche where id= " + id);
 		if (!rs.next()) {
 			System.out.println("No se ha encontrado dupla o fila con ese ID.");
 			return false;
@@ -56,7 +55,7 @@ public class CRUDfabricante {
 	 */
 	private static int getSiguienteIdValido(Connection conn) throws SQLException {
 		Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.fabricante");
+		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.coche");
 
 		if (rs.next()) {
 			return rs.getInt(1) + 1;
@@ -69,12 +68,14 @@ public class CRUDfabricante {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaInsert(Connection conn, String cif, String nombre) throws SQLException {
+	private static void realizaInsert(Connection conn, int idfabricante, int bastidor, String modelo, String color)
+			throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
 
-		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.fabricante " + "(id, cif, nombre) values ("
-				+ getSiguienteIdValido(conn) + ", '" + cif + "', '" + nombre + "')");
+		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.coche "
+				+ "(id, idfabricante, bastidor, modelo, color) values (" + getSiguienteIdValido(conn) + ", '"
+				+ idfabricante + "', '" + bastidor + "', '" + modelo + "', ' +" + color + "')");
 
 		System.out.println("Filas afectadas: " + filasAfectadas);
 
@@ -85,12 +86,14 @@ public class CRUDfabricante {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaUpdate(Connection conn, String nombreMod, String cifMod, int idMod) throws SQLException {
+	private static void realizaUpdate(Connection conn, int idMod, int idfabricanteMod, int bastidorMod,
+			String modeloMod, String colorMod) throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
 
-		int filasAfectadas = s.executeUpdate("update tutorialjavacoches.fabricante " + "set nombre = '" + nombreMod
-				+ "', " + "cif = '" + cifMod + "'\r\n" + "where id = " + idMod);
+		int filasAfectadas = s.executeUpdate("update tutorialjavacoches.coche " + "set idfabricante = '"
+				+ idfabricanteMod + "', " + "bastidor = '" + bastidorMod + "', modelo = '" + modeloMod + "', color =  '"
+				+ colorMod + "'\r\n" + "where id = " + idMod);
 
 		if (filasAfectadas > 0)
 			System.out.println("Filas afectadas: " + filasAfectadas);
@@ -106,14 +109,15 @@ public class CRUDfabricante {
 
 		Statement s = (Statement) conn.createStatement();
 
-		int filasAfectadas = s.executeUpdate("Delete from " + "tutorialjavacoches.fabricante " + "where id = " + idMod);
+		int filasAfectadas = s.executeUpdate("Delete from " + "tutorialjavacoches.coche " + "where id = " + idMod);
 
-		if (filasAfectadas > 0) System.out.println("Filas afectadas: " + filasAfectadas);
+		if (filasAfectadas > 0)
+			System.out.println("Filas afectadas: " + filasAfectadas);
 
 		s.close();
 	}
 
-	public static void listaTabla() {
+	private static void listaTabla() {
 		try {
 			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL,
 			// si no fuera así
@@ -134,7 +138,7 @@ public class CRUDfabricante {
 			// recibe en forma de objeto
 			// de tipo ResultSet, que puede ser navegado para descubrir todos los registros
 			// obtenidos por la consulta
-			ResultSet rs = s.executeQuery("select * from fabricante");
+			ResultSet rs = s.executeQuery("select * from coche");
 
 			// Navegación del objeto ResultSet
 			while (rs.next()) {
@@ -160,7 +164,7 @@ public class CRUDfabricante {
 	 * @throws ClassNotFoundException
 	 */
 
-	public static void fabricante() throws ClassNotFoundException, SQLException {
+	public static void coche() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = getConexion();
 		Scanner sc = new Scanner(System.in);
@@ -169,30 +173,45 @@ public class CRUDfabricante {
 		do {
 			System.out.println();
 			opcion = Utils.obtenerEnteroConDescripcion("Ingrese la acción a realizar: " + "\n0. Volver atrás."
-					+ "\n1. Listar todos los registros de la tabla." + "\n2. Crear un nuevo Fabricante."
-					+ "\n3. Modificar un Fabricante." + "\n4. Eliminar un Fabricante.");
+					+ "\n1. Listar todos los registros de la tabla." + "\n2. Crear un nuevo Coche."
+					+ "\n3. Modificar un Coche." + "\n4. Eliminar un Coche.");
 
 			if (opcion == 1) {
 				listaTabla();
 			}
 			if (opcion == 2) {
-				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nombre: ");
-				String cif = Utils.obtenerCadenaConDescripcion("Introduzca el cif: ");
-				realizaInsert(conn, cif, nombre);
+				CRUDfabricante.listaTabla();
+				int idfabricante = Utils
+						.obtenerEnteroConDescripcion("Seleccione el id del fabricante de la lista mostrada: ");
+				CRUDfabricante.comprobarID(conn, idfabricante);
+				if (CRUDfabricante.comprobarID(conn, idfabricante)) {
+					String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el modelo del coche: ");
+					String color = Utils.obtenerCadenaConDescripcion("Introduzca el color del coche: ");
+					int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el bastidor: ");
+					realizaInsert(conn, idfabricante, bastidor, modelo, color);
+				}
 			}
 			if (opcion == 3) {
-				int newId = Utils.obtenerEnteroConDescripcion("Introduzca el id a modificar: ");
-				comprobarID(conn, newId);
-				if (comprobarID(conn, newId)) {
-					String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo nombre: ");
-					String cif = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo cif: ");
-					realizaUpdate(conn, nombre, cif, newId);
+				int id = Utils.obtenerEnteroConDescripcion("Introduzca el id del coche a modificar: ");
+				comprobarID(conn, id);
+				if(comprobarID(conn, id)) {
+					CRUDfabricante.listaTabla();
+					int idfabricante = Utils
+							.obtenerEnteroConDescripcion("Seleccione el nuevo id del fabricante de la lista mostrada: ");
+					CRUDfabricante.comprobarID(conn, idfabricante);
+					if (CRUDfabricante.comprobarID(conn, idfabricante)) {
+						String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo modelo del coche: ");
+						String color = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo color del coche: ");
+						int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el nuevo bastidor: ");
+						realizaUpdate(conn, id, idfabricante, bastidor, modelo, color);
+					}
 				}
 			}
 			if (opcion == 4) {
 				int newId = Utils.obtenerEnteroConDescripcion("Introduzca el id del elemento a borrar: ");
 				comprobarID(conn, newId);
-				if(comprobarID(conn,newId)) realizaDelete(conn, newId);
+				if (comprobarID(conn, newId))
+					realizaDelete(conn, newId);
 			}
 		} while (opcion != 0);
 	}

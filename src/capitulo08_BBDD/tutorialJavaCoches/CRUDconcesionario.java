@@ -30,6 +30,23 @@ public class CRUDconcesionario {
 		return (Connection) DriverManager.getConnection("jdbc:mysql://" + host + "/" + schema + properties, user,
 				password);
 	}
+	
+	/**
+	 * Compruebo si el id introducido existe.
+	 * @param conn
+	 * @param id
+	 * @throws SQLException
+	 */
+	
+	private static Boolean comprobarID(Connection conn, int id) throws SQLException {
+		Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("select * from concesionario where id= " + id);
+		if (!rs.next()) {
+			System.out.println("No se ha encontrado dupla o fila con ese ID.");
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * 
@@ -74,10 +91,7 @@ public class CRUDconcesionario {
 		int filasAfectadas = s.executeUpdate("update tutorialjavacoches.concesionario " + "set nombre = '" + nombreMod
 				+ "', " + "localidad = '" + localidadMod + "', " + "cif = '" + cifMod + "'\r\n" + "where id = " + idMod);
 
-		if (filasAfectadas > 0)
-			System.out.println("Filas afectadas: " + filasAfectadas);
-		else
-			System.out.println("No se ha encontrado dupla o fila con ese ID.");
+		if (filasAfectadas > 0) System.out.println("Filas afectadas: " + filasAfectadas);
 
 		s.close();
 	}
@@ -155,8 +169,8 @@ public class CRUDconcesionario {
 				listaTabla();
 			}
 			if (opcion == 2) {
-				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo nombre: ");
-				String cif = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo cif: ");
+				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nombre: ");
+				String cif = Utils.obtenerCadenaConDescripcion("Introduzca el cif: ");
 				String localidad = Utils.obtenerCadenaConDescripcion("Introduzca una localidad: ");
 				realizaInsert(conn, cif, nombre, localidad);
 			}
