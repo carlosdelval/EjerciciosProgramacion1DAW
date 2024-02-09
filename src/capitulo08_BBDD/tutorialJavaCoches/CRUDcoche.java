@@ -68,7 +68,7 @@ public class CRUDcoche {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaInsert(Connection conn, int idfabricante, int bastidor, String modelo, String color)
+	private static void realizaInsert(Connection conn, int idfabricante, long bastidor, String modelo, String color)
 			throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
@@ -86,7 +86,7 @@ public class CRUDcoche {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaUpdate(Connection conn, int idMod, int idfabricanteMod, int bastidorMod,
+	private static void realizaUpdate(Connection conn, int idMod, int idfabricanteMod, long bastidorMod,
 			String modeloMod, String colorMod) throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
@@ -188,7 +188,8 @@ public class CRUDcoche {
 				if (CRUDfabricante.comprobarID(conn, idfabricante)) {
 					String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el modelo del coche: ");
 					String color = Utils.obtenerCadenaConDescripcion("Introduzca el color del coche: ");
-					int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el bastidor: ");
+					System.out.println("Introduzca el bastidor del coche: ");
+					long bastidor = sc.nextLong();
 					realizaInsert(conn, idfabricante, bastidor, modelo, color);
 				}
 			}
@@ -204,7 +205,8 @@ public class CRUDcoche {
 					if (CRUDfabricante.comprobarID(conn, idfabricante)) {
 						String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo modelo del coche: ");
 						String color = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo color del coche: ");
-						int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el nuevo bastidor: ");
+						System.out.println("Introduzca el nuevo bastidor del coche: ");
+						long bastidor = sc.nextLong();
 						realizaUpdate(conn, id, idfabricante, bastidor, modelo, color);
 					}
 				}
