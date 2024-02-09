@@ -38,7 +38,7 @@ public class CRUDcoche {
 	 * @throws SQLException
 	 */
 
-	private static Boolean comprobarID(Connection conn, int id) throws SQLException {
+	public static Boolean comprobarID(Connection conn, int id) throws SQLException {
 		Statement s = conn.createStatement();
 		ResultSet rs = s.executeQuery("select * from coche where id= " + id);
 		if (!rs.next()) {
@@ -111,13 +111,12 @@ public class CRUDcoche {
 
 		int filasAfectadas = s.executeUpdate("Delete from " + "tutorialjavacoches.coche " + "where id = " + idMod);
 
-		if (filasAfectadas > 0)
-			System.out.println("Filas afectadas: " + filasAfectadas);
+		if (filasAfectadas > 0) System.out.println("Filas afectadas: " + filasAfectadas);
 
 		s.close();
 	}
 
-	private static void listaTabla() {
+	public static void listaTabla() {
 		try {
 			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL,
 			// si no fuera así
@@ -142,7 +141,7 @@ public class CRUDcoche {
 
 			// Navegación del objeto ResultSet
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));
 			}
 			// Cierre de los elementos
 			rs.close();
@@ -178,9 +177,11 @@ public class CRUDcoche {
 
 			if (opcion == 1) {
 				listaTabla();
+				System.out.println();
 			}
 			if (opcion == 2) {
 				CRUDfabricante.listaTabla();
+				System.out.println();
 				int idfabricante = Utils
 						.obtenerEnteroConDescripcion("Seleccione el id del fabricante de la lista mostrada: ");
 				CRUDfabricante.comprobarID(conn, idfabricante);
@@ -196,6 +197,7 @@ public class CRUDcoche {
 				comprobarID(conn, id);
 				if(comprobarID(conn, id)) {
 					CRUDfabricante.listaTabla();
+					System.out.println();
 					int idfabricante = Utils
 							.obtenerEnteroConDescripcion("Seleccione el nuevo id del fabricante de la lista mostrada: ");
 					CRUDfabricante.comprobarID(conn, idfabricante);

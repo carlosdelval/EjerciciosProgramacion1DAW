@@ -174,6 +174,7 @@ public class CRUDfabricante {
 
 			if (opcion == 1) {
 				listaTabla();
+				System.out.println();
 			}
 			if (opcion == 2) {
 				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nombre: ");

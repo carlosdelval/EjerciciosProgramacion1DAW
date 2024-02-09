@@ -38,7 +38,7 @@ public class CRUDconcesionario {
 	 * @throws SQLException
 	 */
 	
-	private static Boolean comprobarID(Connection conn, int id) throws SQLException {
+	public static Boolean comprobarID(Connection conn, int id) throws SQLException {
 		Statement s = conn.createStatement();
 		ResultSet rs = s.executeQuery("select * from concesionario where id= " + id);
 		if (!rs.next()) {
@@ -108,13 +108,11 @@ public class CRUDconcesionario {
 
 		if (filasAfectadas > 0)
 			System.out.println("Filas afectadas: " + filasAfectadas);
-		else
-			System.out.println("No se ha encontrado dupla o fila con ese ID.");
 
 		s.close();
 	}
 
-	private static void listaTabla() {
+	public static void listaTabla() {
 		try {
 			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL,
 			// si no fuera así
@@ -139,7 +137,7 @@ public class CRUDconcesionario {
 
 			// Navegación del objeto ResultSet
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
 			}
 			// Cierre de los elementos
 			rs.close();
@@ -167,6 +165,7 @@ public class CRUDconcesionario {
 
 			if (opcion == 1) {
 				listaTabla();
+				System.out.println();
 			}
 			if (opcion == 2) {
 				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nombre: ");

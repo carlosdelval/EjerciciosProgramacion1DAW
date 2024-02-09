@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import tutorialJava.Utils;
@@ -68,14 +71,14 @@ public class CRUDventa {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaInsert(Connection conn, int idfabricante, int bastidor, String modelo, String color)
+	private static void realizaInsert(Connection conn, int idCliente, int idConcesionario, int idCoche, String fecha, int precioVenta)
 			throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
 
 		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.venta "
-				+ "(id, idfabricante, bastidor, modelo, color) values (" + getSiguienteIdValido(conn) + ", '"
-				+ idfabricante + "', '" + bastidor + "', '" + modelo + "', ' +" + color + "')");
+				+ "(id, idCliente, idConcesionario, idCoche, fecha, precioVenta) values (" + getSiguienteIdValido(conn) + ", '"
+				+ idCliente + "', '" + idConcesionario + "', '" + idCoche + "', '" + fecha + "', '" + precioVenta + "')");
 
 		System.out.println("Filas afectadas: " + filasAfectadas);
 
@@ -86,14 +89,14 @@ public class CRUDventa {
 	 * @throws SQLException
 	 * 
 	 */
-	private static void realizaUpdate(Connection conn, int idMod, int idfabricanteMod, int bastidorMod,
-			String modeloMod, String colorMod) throws SQLException {
+	private static void realizaUpdate(Connection conn, int idMod, int idClienteMod, int idConcesionarioMod, int idCocheMod,
+			String fechaMod, int precioVentaMod) throws SQLException {
 
 		Statement s = (Statement) conn.createStatement();
 
-		int filasAfectadas = s.executeUpdate("update tutorialjavacoches.venta " + "set idfabricante = '"
-				+ idfabricanteMod + "', " + "bastidor = '" + bastidorMod + "', modelo = '" + modeloMod + "', color =  '"
-				+ colorMod + "'\r\n" + "where id = " + idMod);
+		int filasAfectadas = s.executeUpdate("update tutorialjavacoches.venta " + "set idCliente = '"
+				+ idClienteMod + "', " + "idConcesionario = '" + idConcesionarioMod + "', idCoche = '" + idCocheMod + "', fecha =  '"
+				+ fechaMod + "', precioVenta = '" + precioVentaMod + "'\r\n" + "where id = " + idMod);
 
 		if (filasAfectadas > 0)
 			System.out.println("Filas afectadas: " + filasAfectadas);
@@ -142,7 +145,7 @@ public class CRUDventa {
 
 			// Navegación del objeto ResultSet
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getString(6));
 			}
 			// Cierre de los elementos
 			rs.close();
@@ -168,6 +171,9 @@ public class CRUDventa {
 		// TODO Auto-generated method stub
 		Connection conn = getConexion();
 		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaParseada = null;
 		int opcion = 5;
 
 		do {
@@ -178,32 +184,69 @@ public class CRUDventa {
 
 			if (opcion == 1) {
 				listaTabla();
+				System.out.println();
 			}
 			if (opcion == 2) {
-				CRUDfabricante.listaTabla();
-				int idfabricante = Utils
-						.obtenerEnteroConDescripcion("Seleccione el id del fabricante de la lista mostrada: ");
-				CRUDfabricante.comprobarID(conn, idfabricante);
-				if (CRUDfabricante.comprobarID(conn, idfabricante)) {
-					String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el modelo del coche: ");
-					String color = Utils.obtenerCadenaConDescripcion("Introduzca el color del coche: ");
-					int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el bastidor: ");
-					realizaInsert(conn, idfabricante, bastidor, modelo, color);
+				CRUDcliente.listaTabla();
+				System.out.println();
+				int idcliente = Utils
+						.obtenerEnteroConDescripcion("Seleccione el id del cliente de la lista mostrada: ");
+				CRUDcliente.comprobarID(conn, idcliente);
+				if (CRUDcliente.comprobarID(conn, idcliente)) {
+					CRUDconcesionario.listaTabla();
+					System.out.println();
+					int idconcesionario = Utils.obtenerEnteroConDescripcion("Seleccione el id del concesionario de la lista mostrada: ");
+					CRUDconcesionario.comprobarID(conn, idconcesionario);
+					if(CRUDconcesionario.comprobarID(conn, idconcesionario)) {
+						CRUDcoche.listaTabla();
+						System.out.println();
+						int idcoche = Utils.obtenerEnteroConDescripcion("Seleccione el id del coche de la lista mostrada: ");
+						CRUDcoche.comprobarID(conn, idcoche);
+						if(CRUDcoche.comprobarID(conn, idcoche)) {
+							String fechaventa = Utils.obtenerCadenaConDescripcion("Introduzca la fecha de la venta (dd/MM/yyyy): ");
+							try {
+								fechaParseada = sdf.parse(fechaventa);
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+							String fechaVenta = sdfSalida.format(fechaParseada);
+							int precioVenta = Utils.obtenerEnteroConDescripcion("Introduzca el precio de la venta: ");
+							realizaInsert(conn, idcliente, idconcesionario, idcoche, fechaVenta, precioVenta);
+						}
+					}
 				}
 			}
 			if (opcion == 3) {
-				int id = Utils.obtenerEnteroConDescripcion("Introduzca el id del coche a modificar: ");
-				comprobarID(conn, id);
-				if(comprobarID(conn, id)) {
-					CRUDfabricante.listaTabla();
-					int idfabricante = Utils
-							.obtenerEnteroConDescripcion("Seleccione el nuevo id del fabricante de la lista mostrada: ");
-					CRUDfabricante.comprobarID(conn, idfabricante);
-					if (CRUDfabricante.comprobarID(conn, idfabricante)) {
-						String modelo = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo modelo del coche: ");
-						String color = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo color del coche: ");
-						int bastidor = Utils.obtenerEnteroConDescripcion("Introduzca el nuevo bastidor: ");
-						realizaUpdate(conn, id, idfabricante, bastidor, modelo, color);
+				int idNuevo = Utils.obtenerEnteroConDescripcion("Introduzca el id a modificar: ");
+				comprobarID(conn, idNuevo);
+				if(comprobarID(conn, idNuevo)) {
+					CRUDcliente.listaTabla();
+					System.out.println();
+					int idcliente = Utils
+							.obtenerEnteroConDescripcion("Seleccione el nuevo id del cliente de la lista mostrada: ");
+					CRUDcliente.comprobarID(conn, idcliente);
+					if (CRUDcliente.comprobarID(conn, idcliente)) {
+						CRUDconcesionario.listaTabla();
+						System.out.println();
+						int idconcesionario = Utils.obtenerEnteroConDescripcion("Seleccione el nuevo id del concesionario de la lista mostrada: ");
+						CRUDconcesionario.comprobarID(conn, idconcesionario);
+						if(CRUDconcesionario.comprobarID(conn, idconcesionario)) {
+							CRUDcoche.listaTabla();
+							System.out.println();
+							int idcoche = Utils.obtenerEnteroConDescripcion("Seleccione el nuevo id del coche de la lista mostrada: ");
+							CRUDcoche.comprobarID(conn, idcoche);
+							if(CRUDcoche.comprobarID(conn, idcoche)) {
+								String fechaventa = Utils.obtenerCadenaConDescripcion("Introduzca la nueva fecha de la venta (dd/MM/yyyy): ");
+								try {
+									fechaParseada = sdf.parse(fechaventa);
+								} catch (ParseException e) {
+									e.printStackTrace();
+								}
+								String fechaVenta = sdfSalida.format(fechaParseada);
+								int precioVenta = Utils.obtenerEnteroConDescripcion("Introduzca el nuevo precio de la venta: ");
+								realizaUpdate(conn, idNuevo, idcliente, idconcesionario, idcoche, fechaVenta, precioVenta);
+							}
+						}
 					}
 				}
 			}

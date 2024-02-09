@@ -36,7 +36,7 @@ public class CRUDcliente {
 	 * @throws SQLException
 	 */
 
-	private static Boolean comprobarID(Connection conn, int id) throws SQLException {
+	public static Boolean comprobarID(Connection conn, int id) throws SQLException {
 		Statement s = conn.createStatement();
 		ResultSet rs = s.executeQuery("select * from cliente where id= " + id);
 		if (!rs.next()) {
@@ -53,7 +53,7 @@ public class CRUDcliente {
 	 */
 	private static int getSiguienteIdValido(Connection conn) throws SQLException {
 		Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.concesionario");
+		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.cliente");
 
 		if (rs.next()) {
 			return rs.getInt(1) + 1;
@@ -68,7 +68,7 @@ public class CRUDcliente {
 		Statement s = (Statement) conn.createStatement();
 
 		int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.cliente "
-				+ "(id, cif, nombre, apellidos, localidad, dniNie, fechaNac, activo) values ("
+				+ "(id, nombre, apellidos, localidad, dniNie, fechaNac, activo) values ("
 				+ getSiguienteIdValido(conn) + ", '" + nombre + "', '" + apellidos + "', '" + localidad
 				+ "','" + dniNie + "', '" + fechaNac + "', '" + activo + "')");
 
@@ -103,7 +103,7 @@ public class CRUDcliente {
 		s.close();
 	}
 
-	private static void listaTabla() {
+	public static void listaTabla() {
 		try {
 			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL,
 			// si no fuera así
@@ -128,7 +128,7 @@ public class CRUDcliente {
 
 			// Navegación del objeto ResultSet
 			while (rs.next()) {
-				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+				System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getString(6));
 			}
 			// Cierre de los elementos
 			rs.close();
@@ -147,8 +147,9 @@ public class CRUDcliente {
 		// TODO Auto-generated method stub
 		Connection conn = getConexion();
 		Scanner sc = new Scanner(System.in);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date fechaNac = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaParseada = null;
 		int opcion = 5;
 
 		do {
@@ -159,25 +160,26 @@ public class CRUDcliente {
 
 			if (opcion == 1) {
 				listaTabla();
+				System.out.println();
 			}
 			if (opcion == 2) {
 				String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nombre: ");
 				String apellidos = Utils.obtenerCadenaConDescripcion("Introduzca los apellidos: ");
 				String dni = Utils.obtenerCadenaConDescripcion("Introduzca el dni: ");
-				String fechacliente = Utils.obtenerCadenaConDescripcion("Introduzca la fecha de nacimiento (dd/MM/yyyy HH:mm:ss): ");
+				String fechacliente = Utils.obtenerCadenaConDescripcion("Introduzca la fecha de nacimiento (dd/MM/yyyy): ");
 				try {
-					fechaNac = sdf.parse(fechacliente);
+					fechaParseada = sdf.parse(fechacliente);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				String fechanac = sdf.format(fechaNac);
+				String fechanacimiento = sdfSalida.format(fechaParseada);
 				String localidad = Utils.obtenerCadenaConDescripcion("Introduzca una localidad: ");
 				int activo = Utils.obtenerEnteroConDescripcion("¿Activo? 1 sí, 0 no :");
 				while(activo < 0 || activo > 1) {
 					activo = Utils.obtenerEnteroConDescripcion(
 							"Opción incorrecta, introduzca de nuevo. ¿Activo? 1 sí, 0 no :");
 				}
-				realizaInsert(conn, nombre, apellidos, localidad, dni, fechanac, activo);
+				realizaInsert(conn, nombre, apellidos, localidad, dni, fechanacimiento, activo);
 			}
 			if (opcion == 3) {
 				int newId = Utils.obtenerEnteroConDescripcion("Introduzca el id a modificar: ");
@@ -186,7 +188,14 @@ public class CRUDcliente {
 					String nombre = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo nombre: ");
 					String apellidos = Utils.obtenerCadenaConDescripcion("Introduzca los nuevos apellidos: ");
 					String dni = Utils.obtenerCadenaConDescripcion("Introduzca el nuevo dni: ");
-					String fechanac = Utils.obtenerCadenaConDescripcion("Introduzca la nueva fecha de nacimiento: ");
+					String fechacliente = Utils.obtenerCadenaConDescripcion("Introduzca la fecha de nacimiento (dd/MM/yyyy): ");
+					
+					try {
+						fechaParseada = sdf.parse(fechacliente);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					String fechanac = sdfSalida.format(fechaParseada);
 					String localidad = Utils.obtenerCadenaConDescripcion("Introduzca una localidad: ");
 					int activo = Utils.obtenerEnteroConDescripcion("¿Activo? 1 sí, 0 no:");
 					while(activo < 0 || activo > 1) {
