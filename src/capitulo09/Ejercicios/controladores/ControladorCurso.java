@@ -97,10 +97,10 @@ public class ControladorCurso {
 	
 	public static void insertCurso(Curso nueva) {
 		try {
-			String sql = "insert into " + nombreTabla + " (descripcion, id) values (?,?,?,?";
+			String sql = "insert into " + nombreTabla + " (descripcion, id) values (?,?)";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getDescripcion());
-			ps.setInt(2, nueva.getId());
+			ps.setInt(2, getSiguienteIdValido(ConnectionManager.getConexion()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -139,5 +139,16 @@ public class ControladorCurso {
 		Curso o = new Curso();
 		o.setDescripcion(rs.getString("descripcion"));
 		return o;
+	}
+	
+	private static int getSiguienteIdValido(Connection conn) throws SQLException {
+		Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from centroeducativo.curso");
+
+		if (rs.next()) {
+			return rs.getInt(1) + 1;
+		}
+
+		return 1;
 	}
 }

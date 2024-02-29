@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 import capitulo08_BBDD.tutorialJavaCoches.ConnectionManager;
 import capitulo09.Ejercicios.entidades.Materia;
+import capitulo09.Ejercicios.entidades.Persona;
 
-public class ControladorMateria extends SuperControlador {
-	private static String nombreTabla = "centroeducativo.materia";
+public class ControladorPersona extends SuperControlador {
 
-	public static Materia getPrimero() {
+	public static Persona getPrimero(String nombreTabla) {
 		try {
 			return getEntidad (ConnectionManager.getConexion(),
 					"select * from " + nombreTabla
@@ -25,7 +25,7 @@ public class ControladorMateria extends SuperControlador {
 	}
 
 	
-	public static Materia getUltimo() {
+	public static Persona getUltimo(String nombreTabla) {
 		try {
 			return getEntidad(ConnectionManager.getConexion(), 
 					"select * from " + nombreTabla
@@ -37,7 +37,7 @@ public class ControladorMateria extends SuperControlador {
 		return null;
 	}
 	
-	public static Materia getAnterior(int idActual) {
+	public static Persona getAnterior(int idActual, String nombreTabla) {
 		if(idActual != 1) {
 			try {
 				String sql = "select * from " + nombreTabla + " where id < " + idActual
@@ -52,7 +52,7 @@ public class ControladorMateria extends SuperControlador {
 	}
 
 	
-	public static Materia getSiguiente(int idActual) {
+	public static Persona getSiguiente(int idActual, String nombreTabla) {
 		try {
 			return getEntidad (ConnectionManager.getConexion(),
 					"select * from " + nombreTabla + " where id > " + idActual
@@ -64,14 +64,18 @@ public class ControladorMateria extends SuperControlador {
 		return null;
 	}
 	
-	public static void updateMateria(Materia nueva) {
+	public static void update(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "update " + nombreTabla + " set acronimo = ?, nombre = ?, curso_id = ? where id = ?";
+			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ? where id = ?";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
-			ps.setString(1, nueva.getAcronimo());
-			ps.setString(2, nueva.getNombre());
-			ps.setInt(3, nueva.getCursoId());
-			ps.setInt(4, nueva.getId());
+			ps.setString(1, nueva.getNombre());
+			ps.setString(2, nueva.getApellido1());
+			ps.setString(3, nueva.getApellido2());
+			ps.setString(4, nueva.getDireccion());
+			ps.setString(5, nueva.getEmail());
+			ps.setString(6, nueva.getTelefono());
+			ps.setString(7, nueva.getDni());
+			ps.setInt(8, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,14 +83,18 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	public static void insertMateria(Materia nueva) {
+	public static void insert(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "insert into " + nombreTabla + " (acronimo, nombre, curso_id, id) values (?,?,?,?";
+			String sql = "insert into " + nombreTabla + " (nombre,apellido1,apellido2,direccion,email,telefono,dni,id) values (?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
-			ps.setString(1, nueva.getAcronimo());
-			ps.setString(2, nueva.getNombre());
-			ps.setInt(3, nueva.getCursoId());
-			ps.setInt(4, nueva.getId());
+			ps.setString(1, nueva.getNombre());
+			ps.setString(2, nueva.getApellido1());
+			ps.setString(3, nueva.getApellido2());
+			ps.setString(4, nueva.getDireccion());
+			ps.setString(5, nueva.getEmail());
+			ps.setString(6, nueva.getTelefono());
+			ps.setString(7, nueva.getDni());
+			ps.setInt(8, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +102,7 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	public static void deleteMateria(int id) {
+	public static void delete(int id, String nombreTabla) {
 		try {
 			String sql = "delete from + " + nombreTabla + " where id = " + id;
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
@@ -105,18 +113,23 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	private static Materia getEntidad(Connection conn, String sql) throws SQLException {
+	private static Persona getEntidad(Connection conn, String sql) throws SQLException {
 		Statement s = conn.createStatement();
 		ResultSet rs = s.executeQuery(sql);
 		
-		Materia o = null;
+		Persona o = null;
 		if (rs.next()) {
-			o = new Materia();
+			o = new Persona();
 			o.setId(rs.getInt("id"));
-			o.setCursoId(rs.getInt("curso_id"));
-			o.setAcronimo(rs.getString("acronimo"));
 			o.setNombre(rs.getString("nombre"));
+			o.setApellido1(rs.getString("apellido1"));
+			o.setApellido2(rs.getString("apellido2"));
+			o.setDni(rs.getString("dni"));
+			o.setDireccion(rs.getString("direccion"));
+			o.setEmail(rs.getString("email"));
+			o.setTelefono(rs.getString("telefono"));
 		}
 		return o;
 	}
 }
+

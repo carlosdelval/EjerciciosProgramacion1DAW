@@ -191,7 +191,6 @@ public class PanelCurso extends JPanel {
 				c.setId(Integer.parseInt(jtfId.getText()));
 			}
 			c.setDescripcion(this.jtfDescripcion.getText());
-			c.setId(Integer.parseInt(this.jtfId.getText()));
 			//Decido si debo insertar o modificar
 			if(c.getId() == -1) {
 				ControladorCurso.insertCurso(c);

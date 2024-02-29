@@ -4,8 +4,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 
-import capitulo08_BBDD.tutorialJavaCoches.ConnectionManager;
-import capitulo08_BBDD.tutorialJavaCoches.GestionFabricante;
 import capitulo09.Ejercicios.controladores.ControladorCurso;
 import capitulo09.Ejercicios.controladores.ControladorMateria;
 import capitulo09.Ejercicios.entidades.Curso;
