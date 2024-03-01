@@ -2,7 +2,7 @@ package capitulo09.Ejercicios.entidades;
 
 public class Persona {
 	private String nombre, apellido1, apellido2, dni, direccion, email, telefono;
-	private int id;
+	private int id, idSexo;
 
 	public Persona() {
 		super();
@@ -10,7 +10,7 @@ public class Persona {
 	}
 
 	public Persona(int id, String nombre, String apellido1, String apellido2, String dni, String direccion,
-			String email, String telefono) {
+			String email, String telefono, int idSexo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -20,6 +20,15 @@ public class Persona {
 		this.direccion = direccion;
 		this.email = email;
 		this.telefono = telefono;
+		this.idSexo = idSexo;
+	}
+
+	public int getidSexo() {
+		return idSexo;
+	}
+
+	public void setSexo(int idSexo) {
+		this.idSexo = idSexo;
 	}
 
 	public int getId() {

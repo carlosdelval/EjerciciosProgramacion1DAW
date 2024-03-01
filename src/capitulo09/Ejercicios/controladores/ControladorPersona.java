@@ -66,7 +66,7 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void update(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ? where id = ?";
+			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ?, idTipologiaSexo = ? where id = ?";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getNombre());
 			ps.setString(2, nueva.getApellido1());
@@ -75,7 +75,8 @@ public class ControladorPersona extends SuperControlador {
 			ps.setString(5, nueva.getEmail());
 			ps.setString(6, nueva.getTelefono());
 			ps.setString(7, nueva.getDni());
-			ps.setInt(8, nueva.getId());
+			ps.setInt(8, nueva.getidSexo()+1);
+			ps.setInt(9, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +86,7 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void insert(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "insert into " + nombreTabla + " (nombre,apellido1,apellido2,direccion,email,telefono,dni,id) values (?,?,?,?,?,?,?,?)";
+			String sql = "insert into " + nombreTabla + " (nombre,apellido1,apellido2,direccion,email,telefono,dni,idTipologiaSexo,id) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getNombre());
 			ps.setString(2, nueva.getApellido1());
@@ -94,7 +95,8 @@ public class ControladorPersona extends SuperControlador {
 			ps.setString(5, nueva.getEmail());
 			ps.setString(6, nueva.getTelefono());
 			ps.setString(7, nueva.getDni());
-			ps.setInt(8, nueva.getId());
+			ps.setInt(8, nueva.getidSexo()+1);
+			ps.setInt(9, getSiguienteIdValido(ConnectionManager.getConexion(), nombreTabla));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -104,7 +106,7 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void delete(int id, String nombreTabla) {
 		try {
-			String sql = "delete from + " + nombreTabla + " where id = " + id;
+			String sql = "delete from " + nombreTabla + " where id = " + id;
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -128,8 +130,20 @@ public class ControladorPersona extends SuperControlador {
 			o.setDireccion(rs.getString("direccion"));
 			o.setEmail(rs.getString("email"));
 			o.setTelefono(rs.getString("telefono"));
+			o.setSexo(rs.getInt("idTipologiaSexo"));
 		}
 		return o;
+	}
+	
+	private static int getSiguienteIdValido(Connection conn, String nombreTabla) throws SQLException {
+		Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from " + nombreTabla);
+
+		if (rs.next()) {
+			return rs.getInt(1) + 1;
+		}
+
+		return 1;
 	}
 }
 

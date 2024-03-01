@@ -17,6 +17,7 @@ import javax.swing.JToolBar;
 
 import capitulo09.Ejercicios.controladores.ControladorPersona;
 import capitulo09.Ejercicios.entidades.Persona;
+import javax.swing.JComboBox;
 
 public class PanelProfesor extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -28,6 +29,7 @@ public class PanelProfesor extends JPanel{
 	private JTextField jtfDireccion;
 	private JTextField jtfTelefono;
 	private JTextField jtfEmail;
+	private JComboBox<String> jcbSexo;
 
 	/**
 	 * Create the panel.
@@ -106,9 +108,9 @@ public class PanelProfesor extends JPanel{
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblNewLabel = new JLabel("Gestión de Estudiante");
@@ -189,12 +191,31 @@ public class PanelProfesor extends JPanel{
 		panel.add(jtfApellido2, gbc_jtfApellido2);
 		jtfApellido2.setColumns(10);
 		
+		JLabel lblNewLabel_4_1_1 = new JLabel("Sexo:");
+		GridBagConstraints gbc_lblNewLabel_4_1_1 = new GridBagConstraints();
+		gbc_lblNewLabel_4_1_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_4_1_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_4_1_1.gridx = 0;
+		gbc_lblNewLabel_4_1_1.gridy = 5;
+		panel.add(lblNewLabel_4_1_1, gbc_lblNewLabel_4_1_1);
+		
+		jcbSexo = new JComboBox<String>();
+		jcbSexo.addItem("Hombre");
+		jcbSexo.addItem("Mujer");
+		jcbSexo.addItem("Otro");
+		GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
+		gbc_jcbSexo.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbSexo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jcbSexo.gridx = 1;
+		gbc_jcbSexo.gridy = 5;
+		panel.add(jcbSexo, gbc_jcbSexo);
+		
 		JLabel lblNewLabel_4_1 = new JLabel("DNI:");
 		GridBagConstraints gbc_lblNewLabel_4_1 = new GridBagConstraints();
 		gbc_lblNewLabel_4_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4_1.gridx = 0;
-		gbc_lblNewLabel_4_1.gridy = 5;
+		gbc_lblNewLabel_4_1.gridy = 6;
 		panel.add(lblNewLabel_4_1, gbc_lblNewLabel_4_1);
 		
 		jtfDNI = new JTextField();
@@ -203,7 +224,7 @@ public class PanelProfesor extends JPanel{
 		gbc_jtfDNI.insets = new Insets(0, 0, 5, 0);
 		gbc_jtfDNI.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDNI.gridx = 1;
-		gbc_jtfDNI.gridy = 5;
+		gbc_jtfDNI.gridy = 6;
 		panel.add(jtfDNI, gbc_jtfDNI);
 		
 		JLabel lblNewLabel_4_2 = new JLabel("Dirección:");
@@ -211,7 +232,7 @@ public class PanelProfesor extends JPanel{
 		gbc_lblNewLabel_4_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4_2.gridx = 0;
-		gbc_lblNewLabel_4_2.gridy = 6;
+		gbc_lblNewLabel_4_2.gridy = 7;
 		panel.add(lblNewLabel_4_2, gbc_lblNewLabel_4_2);
 		
 		jtfDireccion = new JTextField();
@@ -220,7 +241,7 @@ public class PanelProfesor extends JPanel{
 		gbc_jtfDireccion.insets = new Insets(0, 0, 5, 0);
 		gbc_jtfDireccion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDireccion.gridx = 1;
-		gbc_jtfDireccion.gridy = 6;
+		gbc_jtfDireccion.gridy = 7;
 		panel.add(jtfDireccion, gbc_jtfDireccion);
 		
 		JLabel lblNewLabel_4_3_1 = new JLabel("Email:");
@@ -228,7 +249,7 @@ public class PanelProfesor extends JPanel{
 		gbc_lblNewLabel_4_3_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4_3_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4_3_1.gridx = 0;
-		gbc_lblNewLabel_4_3_1.gridy = 7;
+		gbc_lblNewLabel_4_3_1.gridy = 8;
 		panel.add(lblNewLabel_4_3_1, gbc_lblNewLabel_4_3_1);
 		
 		jtfEmail = new JTextField();
@@ -237,7 +258,7 @@ public class PanelProfesor extends JPanel{
 		gbc_jtfEmail.insets = new Insets(0, 0, 5, 0);
 		gbc_jtfEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfEmail.gridx = 1;
-		gbc_jtfEmail.gridy = 7;
+		gbc_jtfEmail.gridy = 8;
 		panel.add(jtfEmail, gbc_jtfEmail);
 		
 		JLabel lblNewLabel_4_3 = new JLabel("Teléfono:");
@@ -245,7 +266,7 @@ public class PanelProfesor extends JPanel{
 		gbc_lblNewLabel_4_3.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_4_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4_3.gridx = 0;
-		gbc_lblNewLabel_4_3.gridy = 8;
+		gbc_lblNewLabel_4_3.gridy = 9;
 		panel.add(lblNewLabel_4_3, gbc_lblNewLabel_4_3);
 		
 		jtfTelefono = new JTextField();
@@ -253,7 +274,7 @@ public class PanelProfesor extends JPanel{
 		GridBagConstraints gbc_jtfTelefono = new GridBagConstraints();
 		gbc_jtfTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfTelefono.gridx = 1;
-		gbc_jtfTelefono.gridy = 8;
+		gbc_jtfTelefono.gridy = 9;
 		panel.add(jtfTelefono, gbc_jtfTelefono);
 
 	}
@@ -291,6 +312,7 @@ public class PanelProfesor extends JPanel{
 			this.jtfDNI.setText(o.getDni());
 			this.jtfEmail.setText(o.getEmail());
 			this.jtfTelefono.setText(o.getTelefono());
+			this.jcbSexo.setSelectedIndex(o.getidSexo()-1);
 		}
 	}
 	
@@ -308,6 +330,7 @@ public class PanelProfesor extends JPanel{
 			p.setTelefono(this.jtfTelefono.getText());
 			p.setDni(this.jtfDNI.getText());
 			p.setEmail(this.jtfEmail.getText());
+			p.setSexo(this.jcbSexo.getSelectedIndex());
 			//Decido si debo insertar o modificar
 			if(p.getId() == -1) {
 				ControladorPersona.insert(p, "centroeducativo.profesor");
@@ -328,6 +351,7 @@ public class PanelProfesor extends JPanel{
 		this.jtfEmail.setText("");
 		this.jtfTelefono.setText("");
 		this.jtfDNI.setText("");
+		this.jcbSexo.setSelectedItem(null);
 	}
 	
 	private void eliminar() {
@@ -340,6 +364,7 @@ public class PanelProfesor extends JPanel{
 		this.jtfEmail.setText("");
 		this.jtfTelefono.setText("");
 		this.jtfDireccion.setText("");
+		this.jcbSexo.setSelectedItem(null);
 	}
 }
 

@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import capitulo08_BBDD.tutorialJavaCoches.ConnectionManager;
-import capitulo09.Ejercicios.entidades.Materia;
+import capitulo09.Ejercicios.entidades.ValoracionMateria;
 
-public class ControladorMateria extends SuperControlador {
-	private static String nombreTabla = "centroeducativo.materia";
-
-	public static Materia getPrimero() {
+public class ControladorValoracion extends SuperControlador{
+	
+	private static String nombreTabla = "centroeducativo.valoracionmateria";
+	
+	public static ValoracionMateria getPrimero() {
 		try {
 			return getEntidad (ConnectionManager.getConexion(),
 					"select * from " + nombreTabla
@@ -25,7 +26,7 @@ public class ControladorMateria extends SuperControlador {
 	}
 
 	
-	public static Materia getUltimo() {
+	public static ValoracionMateria getUltimo() {
 		try {
 			return getEntidad(ConnectionManager.getConexion(), 
 					"select * from " + nombreTabla
@@ -37,7 +38,7 @@ public class ControladorMateria extends SuperControlador {
 		return null;
 	}
 	
-	public static Materia getAnterior(int idActual) {
+	public static ValoracionMateria getAnterior(int idActual) {
 		if(idActual != 1) {
 			try {
 				String sql = "select * from " + nombreTabla + " where id < " + idActual
@@ -52,7 +53,7 @@ public class ControladorMateria extends SuperControlador {
 	}
 
 	
-	public static Materia getSiguiente(int idActual) {
+	public static ValoracionMateria getSiguiente(int idActual) {
 		try {
 			return getEntidad (ConnectionManager.getConexion(),
 					"select * from " + nombreTabla + " where id > " + idActual
@@ -64,14 +65,15 @@ public class ControladorMateria extends SuperControlador {
 		return null;
 	}
 	
-	public static void updateMateria(Materia nueva) {
+	public static void update(ValoracionMateria nueva) {
 		try {
-			String sql = "update " + nombreTabla + " set acronimo = ?, nombre = ?, curso_id = ? where id = ?";
+			String sql = "update " + nombreTabla + " set idMateria = ?, idEstudiante = ?, idProfesor = ?, valoracion = ? where id = ?";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
-			ps.setString(1, nueva.getAcronimo());
-			ps.setString(2, nueva.getNombre());
-			ps.setInt(3, nueva.getCursoId());
-			ps.setInt(4, nueva.getId());
+			ps.setInt(1, nueva.getIdMateria());
+			ps.setInt(2, nueva.getIntEstudiante());
+			ps.setInt(3, nueva.getIdProfesor());
+			ps.setInt(4, nueva.getValoracion());
+			ps.setInt(5, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,14 +81,15 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	public static void insertMateria(Materia nueva) {
+	public static void insert(ValoracionMateria nueva) {
 		try {
-			String sql = "insert into " + nombreTabla + " (acronimo, nombre, curso_id, id) values (?,?,?,?)";
+			String sql = "insert into " + nombreTabla + " (idMateria,idEstudiante,idProfesor,valoracion,id) values (?,?,?,?,?)";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
-			ps.setString(1, nueva.getAcronimo());
-			ps.setString(2, nueva.getNombre());
-			ps.setInt(3, nueva.getCursoId());
-			ps.setInt(4, getSiguienteIdValido(ConnectionManager.getConexion()));
+			ps.setInt(1, nueva.getIdMateria());
+			ps.setInt(2, nueva.getIntEstudiante());
+			ps.setInt(3, nueva.getIdProfesor());
+			ps.setInt(4, nueva.getValoracion());
+			ps.setInt(5, getSiguienteIdValido(ConnectionManager.getConexion()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +97,7 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	public static void deleteMateria(int id) {
+	public static void delete(int id) {
 		try {
 			String sql = "delete from " + nombreTabla + " where id = " + id;
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
@@ -105,24 +108,25 @@ public class ControladorMateria extends SuperControlador {
 		}
 	}
 	
-	private static Materia getEntidad(Connection conn, String sql) throws SQLException {
+	private static ValoracionMateria getEntidad(Connection conn, String sql) throws SQLException {
 		Statement s = conn.createStatement();
 		ResultSet rs = s.executeQuery(sql);
 		
-		Materia o = null;
+		ValoracionMateria o = null;
 		if (rs.next()) {
-			o = new Materia();
+			o = new ValoracionMateria();
 			o.setId(rs.getInt("id"));
-			o.setCursoId(rs.getInt("curso_id"));
-			o.setAcronimo(rs.getString("acronimo"));
-			o.setNombre(rs.getString("nombre"));
+			o.setIdMateria(rs.getInt("idMateria"));
+			o.setIdProfesor(rs.getInt("idProfesor"));
+			o.setIntEstudiante(rs.getInt("idEstudiante"));
+			o.setValoracion(rs.getInt("valoracion"));
 		}
 		return o;
 	}
 	
 	private static int getSiguienteIdValido(Connection conn) throws SQLException {
 		Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from centroeducativo.materia");
+		ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from centroeducativo.valoracionmateria");
 
 		if (rs.next()) {
 			return rs.getInt(1) + 1;

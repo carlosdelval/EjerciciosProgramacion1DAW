@@ -7,6 +7,7 @@ import capitulo09.Ejercicios.vista.PanelCurso;
 import capitulo09.Ejercicios.vista.PanelEstudiante;
 import capitulo09.Ejercicios.vista.PanelMateria;
 import capitulo09.Ejercicios.vista.PanelProfesor;
+import capitulo09.Ejercicios.vista.PanelValoracionMateria;
 import tutorialJava.capitulo9_AWT_SWING.utils.Apariencia;
 
 
@@ -27,6 +28,7 @@ public class Principal extends JFrame {
 		PanelMateria panelMateria = new PanelMateria();
 		PanelEstudiante panelEstudiante = new PanelEstudiante();
 		PanelProfesor panelProfesor = new PanelProfesor();
+		PanelValoracionMateria panelValoracion = new PanelValoracionMateria();
 		this.getContentPane().add(panelCurso);
 		
 		JTabbedPane panelTabbed = new JTabbedPane();
@@ -34,6 +36,7 @@ public class Principal extends JFrame {
 		panelTabbed.addTab("Materias", panelMateria);
 		panelTabbed.addTab("Estudiantes", panelEstudiante);
 		panelTabbed.addTab("Profesores", panelProfesor);
+		panelTabbed.addTab("Valoraciones", panelValoracion);
 		panelTabbed.setSelectedIndex(0);
 		
 		this.getContentPane().add(panelTabbed);
