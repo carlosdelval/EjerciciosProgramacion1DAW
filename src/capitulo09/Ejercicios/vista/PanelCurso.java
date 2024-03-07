@@ -20,6 +20,10 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class PanelCurso extends JPanel {
 

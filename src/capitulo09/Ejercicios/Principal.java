@@ -1,6 +1,13 @@
 package capitulo09.Ejercicios;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
 import capitulo09.Ejercicios.vista.PanelCurso;
@@ -29,7 +36,6 @@ public class Principal extends JFrame {
 		PanelEstudiante panelEstudiante = new PanelEstudiante();
 		PanelProfesor panelProfesor = new PanelProfesor();
 		PanelValoracionMateria panelValoracion = new PanelValoracionMateria();
-		this.getContentPane().add(panelCurso);
 		
 		JTabbedPane panelTabbed = new JTabbedPane();
 		panelTabbed.addTab("Cursos", panelCurso);
@@ -40,6 +46,62 @@ public class Principal extends JFrame {
 		panelTabbed.setSelectedIndex(0);
 		
 		this.getContentPane().add(panelTabbed);
+		
+		
+		JMenuBar mnMenuBar = new JMenuBar();
+		setJMenuBar(mnMenuBar);
+		JMenu mnMenu = new JMenu("Archivo");
+		mnMenuBar.add(mnMenu);
+		
+		JMenuItem curso = new JMenuItem("Curso");
+		curso.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelTabbed.setSelectedIndex(0);
+			}
+		});
+		JMenuItem materia = new JMenuItem("Materia");
+		materia.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelTabbed.setSelectedIndex(1);
+			}
+		});
+		JMenuItem estudiante = new JMenuItem("Estudiante");
+		estudiante.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelTabbed.setSelectedIndex(2);
+			}
+		});
+		JMenuItem profesor = new JMenuItem("Profesor");
+		profesor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelTabbed.setSelectedIndex(3);
+			}
+		});
+		JMenuItem valoracionMateria = new JMenuItem("Valoración Materia");
+		valoracionMateria.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelTabbed.setSelectedIndex(4);
+			}
+		});
+	
+
+		
+		
+		mnMenu.add(curso);
+		mnMenu.add(materia);
+		mnMenu.add(estudiante);
+		mnMenu.add(profesor);
+		mnMenu.add(valoracionMateria);
 	}
 	
 
