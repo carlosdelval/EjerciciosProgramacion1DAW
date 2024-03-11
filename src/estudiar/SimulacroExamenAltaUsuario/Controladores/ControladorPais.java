@@ -16,7 +16,7 @@ public class ControladorPais {
 		try {
 			Connection conn = ConnectionManager.getConexion();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select * from centroeducativo");
+			ResultSet rs = st.executeQuery("select * from pais");
 			
 			while (rs.next()) {
 				Pais p = new Pais();
