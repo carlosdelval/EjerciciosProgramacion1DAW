@@ -66,7 +66,7 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void update(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ?, idTipologiaSexo = ? where id = ?";
+			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ?, idTipologiaSexo = ?, imagen = ? where id = ?";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getNombre());
 			ps.setString(2, nueva.getApellido1());
@@ -76,7 +76,8 @@ public class ControladorPersona extends SuperControlador {
 			ps.setString(6, nueva.getTelefono());
 			ps.setString(7, nueva.getDni());
 			ps.setInt(8, nueva.getidSexo()+1);
-			ps.setInt(9, nueva.getId());
+			ps.setBytes(9, nueva.getImagen());
+			ps.setInt(10, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

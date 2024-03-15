@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Files;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,10 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.filechooser.FileFilter;
 
 import capitulo09.Ejercicios.controladores.ControladorPersona;
 import capitulo09.Ejercicios.entidades.Persona;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 public class PanelProfesor extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -33,6 +37,7 @@ public class PanelProfesor extends JPanel{
 	private JTextField jtfEmail;
 	private JComboBox<String> jcbSexo;
 	private JScrollPane scrollPane;
+	private byte[] imagenEnArrayDeBytes;
 
 	/**
 	 * Create the panel.
@@ -240,6 +245,11 @@ public class PanelProfesor extends JPanel{
 		panel.add(jtfDNI, gbc_jtfDNI);
 		
 		JButton btnImagen = new JButton("Cambiar Imagen");
+		btnImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionaImagen ();
+			}
+		});
 		GridBagConstraints gbc_btnImagen = new GridBagConstraints();
 		gbc_btnImagen.insets = new Insets(0, 0, 5, 0);
 		gbc_btnImagen.gridx = 2;
@@ -339,6 +349,7 @@ public class PanelProfesor extends JPanel{
 	
 	private void mostrarImagen (Persona o) {
 		if (o.getImagen() != null && o.getImagen().length > 0) {
+			this.imagenEnArrayDeBytes = o.getImagen();
 			ImageIcon icono = new ImageIcon(o.getImagen());
 	        // Redimensionar la imagen a 100x100
 	        Image imagen = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -350,6 +361,58 @@ public class PanelProfesor extends JPanel{
 		else {
 			JLabel lblIcono = new JLabel("Sin imagen");
 			scrollPane.setViewportView(lblIcono);
+		}
+	}
+	
+	private void seleccionaImagen () {
+		JFileChooser jfileChooser = new JFileChooser();
+		
+		// Configurando el componente
+		
+		// Tipo de selección que se hace en el diálogo
+		jfileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); // Sólo selecciona ficheros
+
+		// Filtro del tipo de ficheros que puede abrir
+		jfileChooser.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Archivos de imagen *.jpg *.png *.gif";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if (f.isDirectory() || (f.isFile() &&
+						(f.getAbsolutePath().toLowerCase().endsWith(".jpg") || 
+								f.getAbsolutePath().toLowerCase().endsWith(".jpeg")|| 
+								f.getAbsolutePath().toLowerCase().endsWith(".png")|| 
+								f.getAbsolutePath().toLowerCase().endsWith(".gif")))) 
+					return true;
+				return false;
+			}
+		});
+		
+		// Abro el diálogo para la elección del usuario
+		int seleccionUsuario = jfileChooser.showOpenDialog(null);
+		
+		if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
+			File fichero = jfileChooser.getSelectedFile();
+			
+			if (fichero.isFile()) {
+				try {
+					this.imagenEnArrayDeBytes = Files.readAllBytes(fichero.toPath());
+					ImageIcon icono = new ImageIcon(imagenEnArrayDeBytes);
+			        // Redimensionar la imagen a 100x100
+			        Image imagen = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+			        // Crear un nuevo ImageIcon con la imagen redimensionada
+			        ImageIcon iconoRedimensionado = new ImageIcon(imagen);
+			        JLabel lblIcono = new JLabel(iconoRedimensionado);
+			        scrollPane.setViewportView(lblIcono);
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -368,6 +431,7 @@ public class PanelProfesor extends JPanel{
 			p.setDni(this.jtfDNI.getText());
 			p.setEmail(this.jtfEmail.getText());
 			p.setSexo(this.jcbSexo.getSelectedIndex());
+			p.setImagen(imagenEnArrayDeBytes);
 			//Decido si debo insertar o modificar
 			if(p.getId() == -1) {
 				ControladorPersona.insert(p, "centroeducativo.profesor");
@@ -389,6 +453,7 @@ public class PanelProfesor extends JPanel{
 		this.jtfTelefono.setText("");
 		this.jtfDNI.setText("");
 		this.jcbSexo.setSelectedItem(null);
+		this.scrollPane.removeAll();
 	}
 	
 	private void eliminar() {
@@ -402,6 +467,7 @@ public class PanelProfesor extends JPanel{
 		this.jtfTelefono.setText("");
 		this.jtfDireccion.setText("");
 		this.jcbSexo.setSelectedItem(null);
+		this.scrollPane.removeAll();
 	}
 }
 
