@@ -3,6 +3,7 @@ package capitulo09.Ejercicios.entidades;
 public class Persona {
 	private String nombre, apellido1, apellido2, dni, direccion, email, telefono;
 	private int id, idSexo;
+	private byte[] imagen;
 
 	public Persona() {
 		super();
@@ -10,7 +11,7 @@ public class Persona {
 	}
 
 	public Persona(int id, String nombre, String apellido1, String apellido2, String dni, String direccion,
-			String email, String telefono, int idSexo) {
+			String email, String telefono, int idSexo, byte[] imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,6 +22,7 @@ public class Persona {
 		this.email = email;
 		this.telefono = telefono;
 		this.idSexo = idSexo;
+		this.imagen = imagen;
 	}
 
 	public int getidSexo() {
@@ -93,6 +95,14 @@ public class Persona {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 	
 	

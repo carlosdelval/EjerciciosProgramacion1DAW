@@ -241,7 +241,7 @@ public class VistaAltaUsuario extends JFrame {
 		u.setIdIdioma(((Idioma)jcbIdioma.getSelectedItem()).getId());;
 		u.setPassword(jtfPassword.getText());
 		u.setUsuario(jtfUsuario.getText());
-		if(compruebaUsuario() == true || compruebaContrasenia() == true) return;
+		if(compruebaUsuario() == true || compruebaContrasenia() == true || compruebaEmail(u.getEmail()) == true) return;
 		if(ControladorUsuario.update(u) == 1) JOptionPane.showMessageDialog(null, "Usuario registrado con éxito.");
 		else JOptionPane.showMessageDialog(null, "Usuario NO registrado correctamente.");
 	}
@@ -295,6 +295,14 @@ public class VistaAltaUsuario extends JFrame {
 	private void activaBoton() {
 		if(jcheckTerminos.isSelected()) jbtnGuardar.setEnabled(true);
 		else jbtnGuardar.setEnabled(false);
+	}
+	
+	private Boolean compruebaEmail(String email) {
+		if(email.matches(".+[@].+[.].+")) {
+			JOptionPane.showMessageDialog(null, "El email no es correcto.");
+			return false;
+		}
+		else return true;
 	}
 
 }

@@ -37,7 +37,7 @@ public class ConnectionManager {
 		   
 			// Necesitamos obtener un acceso a la BBDD, eso se materializa en un objeto de tipo Connection, al cual
 			// le tenemos que pasar los parámetros de conexión.
-			conexion = (Connection) DriverManager.getConnection ("jdbc:mysql://localhost:3310/tutorialjavacoches?serverTimezone=UTC","root", "1234");
+			conexion = (Connection) DriverManager.getConnection ("jdbc:mysql://localhost:3310/gimnasios?serverTimezone=UTC","root", "1234");
 		}
 		catch (ClassNotFoundException ex) {
 			System.out.println("Imposible acceder al driver Mysql");

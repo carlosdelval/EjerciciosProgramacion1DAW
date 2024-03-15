@@ -16,7 +16,7 @@ public class ControladorCentro {
 		try {
 			Connection conn = ConnectionManager.getConexion();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select * from centroeducativo");
+			ResultSet rs = st.executeQuery("select * from gimnasio");
 			
 			while (rs.next()) {
 				CentroEducativo c = new CentroEducativo();

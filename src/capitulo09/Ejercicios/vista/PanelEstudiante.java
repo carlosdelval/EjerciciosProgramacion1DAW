@@ -2,6 +2,8 @@ package capitulo09.Ejercicios.vista;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Component;
+
 import javax.swing.JToolBar;
 
 import capitulo09.Ejercicios.controladores.ControladorCurso;
@@ -13,6 +15,8 @@ import capitulo09.Ejercicios.entidades.Persona;
 
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
@@ -25,6 +29,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
 
 public class PanelEstudiante extends JPanel {
 
@@ -38,6 +43,7 @@ public class PanelEstudiante extends JPanel {
 	private JTextField jtfTelefono;
 	private JTextField jtfEmail;
 	private JComboBox<String> jcbSexo;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -115,20 +121,29 @@ public class PanelEstudiante extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0};
+		gbl_panel.columnWidths = new int[] {0, 178, 231, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblNewLabel = new JLabel("Gestión de Estudiante");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 6;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 0;
+		panel.add(scrollPane, gbc_scrollPane);
 		
 		JLabel lblNewLabel_2 = new JLabel("Id:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -141,7 +156,7 @@ public class PanelEstudiante extends JPanel {
 		jtfId = new JTextField();
 		jtfId.setEnabled(false);
 		GridBagConstraints gbc_jtfId = new GridBagConstraints();
-		gbc_jtfId.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfId.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfId.gridx = 1;
 		gbc_jtfId.gridy = 1;
@@ -159,7 +174,7 @@ public class PanelEstudiante extends JPanel {
 		jtfNombre = new JTextField();
 		jtfNombre.setColumns(10);
 		GridBagConstraints gbc_jtfNombre = new GridBagConstraints();
-		gbc_jtfNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfNombre.gridx = 1;
 		gbc_jtfNombre.gridy = 2;
@@ -175,7 +190,7 @@ public class PanelEstudiante extends JPanel {
 		
 		jtfApellido1 = new JTextField();
 		GridBagConstraints gbc_jtfApellido1 = new GridBagConstraints();
-		gbc_jtfApellido1.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfApellido1.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfApellido1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfApellido1.gridx = 1;
 		gbc_jtfApellido1.gridy = 3;
@@ -192,7 +207,7 @@ public class PanelEstudiante extends JPanel {
 		
 		jtfApellido2 = new JTextField();
 		GridBagConstraints gbc_jtfApellido2 = new GridBagConstraints();
-		gbc_jtfApellido2.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfApellido2.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfApellido2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfApellido2.gridx = 1;
 		gbc_jtfApellido2.gridy = 4;
@@ -212,7 +227,7 @@ public class PanelEstudiante extends JPanel {
 		jcbSexo.addItem("Mujer");
 		jcbSexo.addItem("Otro");
 		GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
-		gbc_jcbSexo.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbSexo.insets = new Insets(0, 0, 5, 5);
 		gbc_jcbSexo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbSexo.gridx = 1;
 		gbc_jcbSexo.gridy = 5;
@@ -229,11 +244,18 @@ public class PanelEstudiante extends JPanel {
 		jtfDNI = new JTextField();
 		jtfDNI.setColumns(10);
 		GridBagConstraints gbc_jtfDNI = new GridBagConstraints();
-		gbc_jtfDNI.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfDNI.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfDNI.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDNI.gridx = 1;
 		gbc_jtfDNI.gridy = 6;
 		panel.add(jtfDNI, gbc_jtfDNI);
+		
+		JButton btnImagen = new JButton("Cambiar Imagen");
+		GridBagConstraints gbc_btnImagen = new GridBagConstraints();
+		gbc_btnImagen.insets = new Insets(0, 0, 5, 0);
+		gbc_btnImagen.gridx = 2;
+		gbc_btnImagen.gridy = 6;
+		panel.add(btnImagen, gbc_btnImagen);
 		
 		JLabel lblNewLabel_4_2 = new JLabel("Dirección:");
 		GridBagConstraints gbc_lblNewLabel_4_2 = new GridBagConstraints();
@@ -246,7 +268,7 @@ public class PanelEstudiante extends JPanel {
 		jtfDireccion = new JTextField();
 		jtfDireccion.setColumns(10);
 		GridBagConstraints gbc_jtfDireccion = new GridBagConstraints();
-		gbc_jtfDireccion.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfDireccion.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfDireccion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDireccion.gridx = 1;
 		gbc_jtfDireccion.gridy = 7;
@@ -263,7 +285,7 @@ public class PanelEstudiante extends JPanel {
 		jtfEmail = new JTextField();
 		jtfEmail.setColumns(10);
 		GridBagConstraints gbc_jtfEmail = new GridBagConstraints();
-		gbc_jtfEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfEmail.gridx = 1;
 		gbc_jtfEmail.gridy = 8;
@@ -280,6 +302,7 @@ public class PanelEstudiante extends JPanel {
 		jtfTelefono = new JTextField();
 		jtfTelefono.setColumns(10);
 		GridBagConstraints gbc_jtfTelefono = new GridBagConstraints();
+		gbc_jtfTelefono.insets = new Insets(0, 0, 0, 5);
 		gbc_jtfTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfTelefono.gridx = 1;
 		gbc_jtfTelefono.gridy = 9;
@@ -321,6 +344,23 @@ public class PanelEstudiante extends JPanel {
 			this.jtfEmail.setText(o.getEmail());
 			this.jtfTelefono.setText(o.getTelefono());
 			this.jcbSexo.setSelectedIndex(o.getidSexo()-1);
+			mostrarImagen(o);
+		}
+	}
+	
+	private void mostrarImagen (Persona o) {
+		if (o.getImagen() != null && o.getImagen().length > 0) {
+			ImageIcon icono = new ImageIcon(o.getImagen());
+	        // Redimensionar la imagen a 100x100
+	        Image imagen = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+	        // Crear un nuevo ImageIcon con la imagen redimensionada
+	        ImageIcon iconoRedimensionado = new ImageIcon(imagen);
+	        JLabel lblIcono = new JLabel(iconoRedimensionado);
+	        scrollPane.setViewportView(lblIcono);
+		}
+		else {
+			JLabel lblIcono = new JLabel("Sin imagen");
+			scrollPane.setViewportView(lblIcono);
 		}
 	}
 	

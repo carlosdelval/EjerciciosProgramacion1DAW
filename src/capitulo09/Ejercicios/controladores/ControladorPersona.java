@@ -131,6 +131,7 @@ public class ControladorPersona extends SuperControlador {
 			o.setEmail(rs.getString("email"));
 			o.setTelefono(rs.getString("telefono"));
 			o.setSexo(rs.getInt("idTipologiaSexo"));
+			o.setImagen(rs.getBytes("imagen"));
 		}
 		return o;
 	}
