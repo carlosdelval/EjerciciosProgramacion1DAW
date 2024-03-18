@@ -1,5 +1,6 @@
 package capitulo09.Ejercicios.controladores;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +67,8 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void update(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ?, idTipologiaSexo = ?, imagen = ? where id = ?";
+			String sql = "update " + nombreTabla + " set nombre = ?, apellido1 = ?, apellido2 = ?, direccion = ?, email = ?, telefono = ?, dni = ?, idTipologiaSexo = ?, imagen = ?"
+					+ ", colorPreferido = ? where id = ?";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getNombre());
 			ps.setString(2, nueva.getApellido1());
@@ -77,7 +79,8 @@ public class ControladorPersona extends SuperControlador {
 			ps.setString(7, nueva.getDni());
 			ps.setInt(8, nueva.getidSexo()+1);
 			ps.setBytes(9, nueva.getImagen());
-			ps.setInt(10, nueva.getId());
+			ps.setString(10, "#"+Integer.toHexString(nueva.getColor().getRGB()).substring(2));
+			ps.setInt(11, nueva.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +90,8 @@ public class ControladorPersona extends SuperControlador {
 	
 	public static void insert(Persona nueva, String nombreTabla) {
 		try {
-			String sql = "insert into " + nombreTabla + " (nombre,apellido1,apellido2,direccion,email,telefono,dni,idTipologiaSexo,id) values (?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into " + nombreTabla + " (nombre,apellido1,apellido2,direccion,email,telefono,dni,idTipologiaSexo, colorPreferido, imagen,id) "
+					+ "values (?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement(sql);
 			ps.setString(1, nueva.getNombre());
 			ps.setString(2, nueva.getApellido1());
@@ -97,7 +101,9 @@ public class ControladorPersona extends SuperControlador {
 			ps.setString(6, nueva.getTelefono());
 			ps.setString(7, nueva.getDni());
 			ps.setInt(8, nueva.getidSexo()+1);
-			ps.setInt(9, getSiguienteIdValido(ConnectionManager.getConexion(), nombreTabla));
+			ps.setString(9, "#"+Integer.toHexString(nueva.getColor().getRGB()).substring(2));
+			ps.setBytes(10, nueva.getImagen());
+			ps.setInt(11, getSiguienteIdValido(ConnectionManager.getConexion(), nombreTabla));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -132,6 +138,7 @@ public class ControladorPersona extends SuperControlador {
 			o.setEmail(rs.getString("email"));
 			o.setTelefono(rs.getString("telefono"));
 			o.setSexo(rs.getInt("idTipologiaSexo"));
+			o.setColor(Color.decode(rs.getString("colorPreferido")));
 			o.setImagen(rs.getBytes("imagen"));
 		}
 		return o;

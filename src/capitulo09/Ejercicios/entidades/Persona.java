@@ -1,9 +1,12 @@
 package capitulo09.Ejercicios.entidades;
 
+import java.awt.Color;
+
 public class Persona {
 	private String nombre, apellido1, apellido2, dni, direccion, email, telefono;
 	private int id, idSexo;
 	private byte[] imagen;
+	private Color color;
 
 	public Persona() {
 		super();
@@ -11,7 +14,7 @@ public class Persona {
 	}
 
 	public Persona(int id, String nombre, String apellido1, String apellido2, String dni, String direccion,
-			String email, String telefono, int idSexo, byte[] imagen) {
+			String email, String telefono, Color color, int idSexo, byte[] imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,6 +24,7 @@ public class Persona {
 		this.direccion = direccion;
 		this.email = email;
 		this.telefono = telefono;
+		this.setColor(color);
 		this.idSexo = idSexo;
 		this.imagen = imagen;
 	}
@@ -103,6 +107,14 @@ public class Persona {
 
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	

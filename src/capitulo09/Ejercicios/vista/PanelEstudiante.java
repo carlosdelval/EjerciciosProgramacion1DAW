@@ -2,9 +2,11 @@ package capitulo09.Ejercicios.vista;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JToolBar;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
 import capitulo09.Ejercicios.controladores.ControladorCurso;
@@ -15,6 +17,8 @@ import capitulo09.Ejercicios.entidades.Materia;
 import capitulo09.Ejercicios.entidades.Persona;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
@@ -49,6 +53,10 @@ public class PanelEstudiante extends JPanel {
 	private JComboBox<String> jcbSexo;
 	private JScrollPane scrollPane;
 	private byte[] imagenEnArrayDeBytes;
+	private JTextField jtfColor;
+	private JButton btnColor;
+	private JColorChooser jColorChooser;
+	private JPanel panel;
 
 	/**
 	 * Create the panel.
@@ -123,13 +131,13 @@ public class PanelEstudiante extends JPanel {
 		btnEliminar.setIcon(new ImageIcon(PanelMateria.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/eliminar.png")));
 		toolBar.add(btnEliminar);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] {0, 178, 231, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblNewLabel = new JLabel("Gestión de Estudiante");
@@ -303,7 +311,7 @@ public class PanelEstudiante extends JPanel {
 		
 		JLabel lblNewLabel_4_3 = new JLabel("Teléfono:");
 		GridBagConstraints gbc_lblNewLabel_4_3 = new GridBagConstraints();
-		gbc_lblNewLabel_4_3.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_4_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4_3.gridx = 0;
 		gbc_lblNewLabel_4_3.gridy = 9;
@@ -312,11 +320,40 @@ public class PanelEstudiante extends JPanel {
 		jtfTelefono = new JTextField();
 		jtfTelefono.setColumns(10);
 		GridBagConstraints gbc_jtfTelefono = new GridBagConstraints();
-		gbc_jtfTelefono.insets = new Insets(0, 0, 0, 5);
+		gbc_jtfTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfTelefono.gridx = 1;
 		gbc_jtfTelefono.gridy = 9;
 		panel.add(jtfTelefono, gbc_jtfTelefono);
+		
+		JLabel lblColorPreferido = new JLabel("Color Preferido:");
+		GridBagConstraints gbc_lblColorPreferido = new GridBagConstraints();
+		gbc_lblColorPreferido.anchor = GridBagConstraints.EAST;
+		gbc_lblColorPreferido.insets = new Insets(0, 0, 0, 5);
+		gbc_lblColorPreferido.gridx = 0;
+		gbc_lblColorPreferido.gridy = 10;
+		panel.add(lblColorPreferido, gbc_lblColorPreferido);
+		
+		jtfColor = new JTextField();
+		jtfColor.setColumns(10);
+		GridBagConstraints gbc_jtfColor = new GridBagConstraints();
+		gbc_jtfColor.insets = new Insets(0, 0, 0, 5);
+		gbc_jtfColor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jtfColor.gridx = 1;
+		gbc_jtfColor.gridy = 10;
+		panel.add(jtfColor, gbc_jtfColor);
+		
+		btnColor = new JButton("Cambiar color");
+		btnColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionaColor();
+			}
+		});
+		GridBagConstraints gbc_btnColor = new GridBagConstraints();
+		gbc_btnColor.anchor = GridBagConstraints.WEST;
+		gbc_btnColor.gridx = 2;
+		gbc_btnColor.gridy = 10;
+		panel.add(btnColor, gbc_btnColor);
 
 	}
 
@@ -354,6 +391,12 @@ public class PanelEstudiante extends JPanel {
 			this.jtfEmail.setText(o.getEmail());
 			this.jtfTelefono.setText(o.getTelefono());
 			this.jcbSexo.setSelectedIndex(o.getidSexo()-1);
+			try {
+				this.jtfColor.setText("#"+Integer.toHexString(o.getColor().getRGB()).substring(2));
+				this.panel.setBackground(o.getColor());
+			}catch(Exception e) {
+				this.panel.setBackground(null);
+			}
 			mostrarImagen(o);
 		}
 	}
@@ -443,6 +486,7 @@ public class PanelEstudiante extends JPanel {
 			p.setEmail(this.jtfEmail.getText());
 			p.setSexo(this.jcbSexo.getSelectedIndex());
 			p.setImagen(imagenEnArrayDeBytes);
+			p.setColor(panel.getBackground());
 			//Decido si debo insertar o modificar
 			if(p.getId() == -1) {
 				ControladorPersona.insert(p, "centroeducativo.estudiante");
@@ -463,6 +507,9 @@ public class PanelEstudiante extends JPanel {
 		this.jtfEmail.setText("");
 		this.jtfTelefono.setText("");
 		this.jtfDNI.setText("");
+		this.jtfColor.setText("");
+		this.panel.setBackground(UIManager.getColor("Panel.background"));
+		this.scrollPane.setViewport(null);
 		this.jcbSexo.setSelectedItem(null);
 		this.scrollPane.removeAll();
 	}
@@ -477,8 +524,21 @@ public class PanelEstudiante extends JPanel {
 		this.jtfEmail.setText("");
 		this.jtfTelefono.setText("");
 		this.jtfDireccion.setText("");
+		this.jtfColor.setText("");
+		this.panel.setBackground(UIManager.getColor("Panel.background"));
+		this.scrollPane.setViewport(null);
 		this.jcbSexo.setSelectedItem(null);
 		this.scrollPane.removeAll();
+	}
+	
+	private void seleccionaColor () {
+		Color color = JColorChooser.showDialog(null, "Seleccione un Color", Color.gray);
+		// Si el usuario pulsa sobre aceptar, el color elegido no será nulo
+		if (color != null) {
+			String strColor = "#"+Integer.toHexString(color.getRGB()).substring(2);
+			this.jtfColor.setText(strColor);
+			this.panel.setBackground(color);
+		}
 	}
 }
 
