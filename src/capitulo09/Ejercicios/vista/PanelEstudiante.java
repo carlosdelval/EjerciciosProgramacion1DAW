@@ -1,6 +1,8 @@
 package capitulo09.Ejercicios.vista;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -23,12 +25,16 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -57,6 +63,7 @@ public class PanelEstudiante extends JPanel {
 	private JButton btnColor;
 	private JColorChooser jColorChooser;
 	private JPanel panel;
+	private JPopupMenu jpmenu;
 
 	/**
 	 * Create the panel.
@@ -149,6 +156,18 @@ public class PanelEstudiante extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 		
+		JMenuItem imagenPopup = new JMenuItem();
+		imagenPopup.setText("Cambiar imagen");
+		imagenPopup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionaImagen();
+			}
+		});
+		
+		jpmenu = new JPopupMenu();
+		jpmenu.add(new JMenuItem("Dimensiones: 100x100px"));
+		jpmenu.add(imagenPopup);
+		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 6;
@@ -157,6 +176,14 @@ public class PanelEstudiante extends JPanel {
 		gbc_scrollPane.gridx = 2;
 		gbc_scrollPane.gridy = 0;
 		panel.add(scrollPane, gbc_scrollPane);
+		scrollPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                jpmenu.show(scrollPane, 200, scrollPane.getHeight());
+            }
+        });
+		
 		
 		JLabel lblNewLabel_2 = new JLabel("Id:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -414,6 +441,7 @@ public class PanelEstudiante extends JPanel {
 		}
 		else {
 			JLabel lblIcono = new JLabel("Sin imagen");
+			this.imagenEnArrayDeBytes = null;
 			scrollPane.setViewportView(lblIcono);
 		}
 	}
@@ -509,6 +537,7 @@ public class PanelEstudiante extends JPanel {
 		this.jtfDNI.setText("");
 		this.jtfColor.setText("");
 		this.panel.setBackground(UIManager.getColor("Panel.background"));
+		this.imagenEnArrayDeBytes = null;
 		this.scrollPane.setViewport(null);
 		this.jcbSexo.setSelectedItem(null);
 		this.scrollPane.removeAll();
@@ -525,6 +554,7 @@ public class PanelEstudiante extends JPanel {
 		this.jtfTelefono.setText("");
 		this.jtfDireccion.setText("");
 		this.jtfColor.setText("");
+		this.imagenEnArrayDeBytes = null;
 		this.panel.setBackground(UIManager.getColor("Panel.background"));
 		this.scrollPane.setViewport(null);
 		this.jcbSexo.setSelectedItem(null);

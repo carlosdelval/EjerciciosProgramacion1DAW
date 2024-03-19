@@ -6,12 +6,46 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import capitulo08_BBDD.tutorialJavaCoches.ConnectionManager;
 import capitulo09.Ejercicios.entidades.Materia;
 import capitulo09.Ejercicios.entidades.Persona;
 
 public class ControladorPersona extends SuperControlador {
+	
+	public static List<Persona> findAll() {
+		List<Persona> lista = new ArrayList<Persona>();
+		
+		try {
+			Connection conn = capitulo09.Ejercicios.controladores.ConnectionManager.getConexion();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery("select * from materia");
+			
+			while (rs.next()) {
+				Persona o = new Persona();
+				o.setId(rs.getInt("id"));
+				o.setNombre(rs.getString("nombre"));
+				o.setApellido1(rs.getString("apellido1"));
+				o.setApellido2(rs.getString("apellido2"));
+				o.setDni(rs.getString("dni"));
+				o.setDireccion(rs.getString("direccion"));
+				o.setEmail(rs.getString("email"));
+				o.setTelefono(rs.getString("telefono"));
+				o.setSexo(rs.getInt("idTipologiaSexo"));
+				o.setColor(Color.decode(rs.getString("colorPreferido")));
+				o.setImagen(rs.getBytes("imagen"));
+				lista.add(o);
+			}
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return lista;
+	}
 
 	public static Persona getPrimero(String nombreTabla) {
 		try {

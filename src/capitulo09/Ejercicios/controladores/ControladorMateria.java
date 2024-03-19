@@ -5,12 +5,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import capitulo08_BBDD.tutorialJavaCoches.ConnectionManager;
 import capitulo09.Ejercicios.entidades.Materia;
 
 public class ControladorMateria extends SuperControlador {
 	private static String nombreTabla = "centroeducativo.materia";
+	
+	public static List<Materia> findAll() {
+		List<Materia> lista = new ArrayList<Materia>();
+		
+		try {
+			Connection conn = capitulo09.Ejercicios.controladores.ConnectionManager.getConexion();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery("select * from materia");
+			
+			while (rs.next()) {
+				Materia m = new Materia();
+				m.setId(rs.getInt("id"));
+				m.setNombre(rs.getString("nombre"));
+				m.setAcronimo(rs.getString("acronimo"));
+				m.setCursoId(rs.getInt("curso_id"));
+				lista.add(m);
+			}
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return lista;
+	}
 
 	public static Materia getPrimero() {
 		try {
