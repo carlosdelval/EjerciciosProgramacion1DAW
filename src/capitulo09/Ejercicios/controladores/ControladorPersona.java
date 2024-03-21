@@ -15,13 +15,13 @@ import capitulo09.Ejercicios.entidades.Persona;
 
 public class ControladorPersona extends SuperControlador {
 	
-	public static List<Persona> findAll() {
+	public static List<Persona> findAll(String nombreTabla) {
 		List<Persona> lista = new ArrayList<Persona>();
 		
 		try {
 			Connection conn = capitulo09.Ejercicios.controladores.ConnectionManager.getConexion();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select * from materia");
+			ResultSet rs = st.executeQuery("select * from " + nombreTabla);
 			
 			while (rs.next()) {
 				Persona o = new Persona();

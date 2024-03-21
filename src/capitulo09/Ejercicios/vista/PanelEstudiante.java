@@ -165,7 +165,7 @@ public class PanelEstudiante extends JPanel {
 		});
 		
 		jpmenu = new JPopupMenu();
-		jpmenu.add(new JMenuItem("Dimensiones: 100x100px"));
+		jpmenu.add(new JMenuItem("Dimensiones: " + 100 + "x" + 100 + "px"));
 		jpmenu.add(imagenPopup);
 		
 		scrollPane = new JScrollPane();

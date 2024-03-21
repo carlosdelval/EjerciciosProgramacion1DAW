@@ -10,6 +10,16 @@ public class Materia {
 	public Materia() {
 		super();
 	}
+	
+	
+
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
+
 
 
 	public Materia(int id, int cursoId, String nombre, String acronimo) {

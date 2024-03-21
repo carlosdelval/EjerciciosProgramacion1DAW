@@ -34,13 +34,15 @@ public class PanelValoracionMateria extends JPanel{
 	private JComboBox<Materia> jcbMateria;
 	private JComboBox<Persona> jcbProfesor;
 	private JButton btnRefrescar;
+	private JScrollPane scrollPane;
+	private VistaJScrollPaneValoracion panelScroll;
 	
 	private static final long serialVersionUID = 1L;
 	
 	public PanelValoracionMateria() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{450, 0};
-		gridBagLayout.rowHeights = new int[]{173, 0, 0};
+		gridBagLayout.rowHeights = new int[]{116, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -123,19 +125,28 @@ public class PanelValoracionMateria extends JPanel{
 		panel_1.setLayout(gbl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.gridheight = 2;
-		gbc_panel_2.gridwidth = 9;
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 3;
-		gbc_panel_2.gridy = 1;
-		panel_1.add(panel_2, gbc_panel_2);
+	    GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+	    gbc_panel_2.gridheight = 2;
+	    gbc_panel_2.gridwidth = 9;
+	    gbc_panel_2.fill = GridBagConstraints.BOTH;
+	    gbc_panel_2.gridx = 3;
+	    gbc_panel_2.gridy = 1;
+	    panel_1.add(panel_2, gbc_panel_2);
+
+	    panelScroll = new VistaJScrollPaneValoracion();
+	    scrollPane = new JScrollPane(panelScroll);
+	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	    panel_2.add(scrollPane);
+
+	    cargaMaterias();
+	    cargaProfesores();
+	}
+	
+	private void refrescarEstudiantes() {
+		List<Persona> lista = ControladorPersona.findAll("alumno");
+		Persona profSeleccionado = (Persona) this.jcbProfesor.getSelectedItem();
+		Materia matSeleccionado = (Materia) this.jcbMateria.getSelectedItem();
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_2.add(scrollPane);
-		
-		cargaMaterias();
-		cargaProfesores();
 	}
 	
 	
@@ -154,7 +165,7 @@ public class PanelValoracionMateria extends JPanel{
 	}
 	
 	private void cargaProfesores() {
-		List<Persona> lista = ControladorPersona.findAll();
+		List<Persona> lista = ControladorPersona.findAll("profesor");
 		
 		for (Persona c : lista) {
 			this.jcbProfesor.addItem(c);

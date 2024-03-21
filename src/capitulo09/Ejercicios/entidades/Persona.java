@@ -12,6 +12,15 @@ public class Persona {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido1 + " " + apellido2;
+	}
+
+
 
 	public Persona(int id, String nombre, String apellido1, String apellido2, String dni, String direccion,
 			String email, String telefono, Color color, int idSexo, byte[] imagen) {
